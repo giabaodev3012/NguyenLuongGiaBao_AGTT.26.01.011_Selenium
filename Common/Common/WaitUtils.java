@@ -1,0 +1,37 @@
+package Common;
+
+import java.time.Duration;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import Constant.Constant;
+
+public class WaitUtils {
+
+	public static By waitForVisible(By locator) {
+		return waitForVisible(locator, Constant.TIMEOUT);
+	}
+
+	public static By waitForVisible(By locator, int timeout) {
+		WebDriverWait wait = new WebDriverWait(Constant.WEBDRIVER, Duration.ofSeconds(timeout));
+		wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+		return locator;
+	}
+
+	public static By waitForClickable(By locator) {
+		return waitForClickable(locator, Constant.TIMEOUT);
+	}
+
+	public static By waitForClickable(By locator, int timeout) {
+		WebDriverWait wait = new WebDriverWait(Constant.WEBDRIVER, Duration.ofSeconds(timeout));
+		wait.until(ExpectedConditions.elementToBeClickable(locator));
+		return locator;
+	}
+
+	public static boolean waitForInvisible(By locator) {
+		WebDriverWait wait = new WebDriverWait(Constant.WEBDRIVER, Duration.ofSeconds(Constant.TIMEOUT));
+		return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+	}
+}

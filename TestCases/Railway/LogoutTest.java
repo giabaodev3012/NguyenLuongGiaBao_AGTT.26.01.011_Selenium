@@ -25,15 +25,15 @@ public class LogoutTest extends GeneralTest {
 
 		// Enter valid information
 		User validUser = new User(Constant.USERNAME, Constant.PASSWORD);
-		loginPage.login(validUser,HomePage.class);
+		HomePage loggedInHomePage = loginPage.login(validUser, HomePage.class);
 
 		// 3. Click on "FAQ" tab
 		System.out.println("3. Click on \"FAQ\" tab");
-		homePage.gotoPage(MenuTab.FAQ, FAQPage.class);
+		FAQPage faqPage = loggedInHomePage.gotoPage(MenuTab.FAQ, FAQPage.class);
 
 		// 4. Click on "Log out" tab
 		System.out.println("4. Click on \"Log out\" tab");
-		HomePage afterLogoutHomePage = homePage.gotoPage(MenuTab.LOGOUT, HomePage.class);
+		HomePage afterLogoutHomePage = faqPage.gotoPage(MenuTab.LOGOUT, HomePage.class);
 
 		// Verify homepage displays
 		boolean isHomePageDisplayed = afterLogoutHomePage.isHomePageDisplayed();

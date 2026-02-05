@@ -8,4 +8,5 @@ public class Constant {
 	public static final String USERNAME = "nguyenluonggiabao3012@gmail.com";
 	public static final String PASSWORD = "12345678";
 	public static final String CONFIRMPASSWORD = "12345678";
+	public static final int TIMEOUT = 10;
 }

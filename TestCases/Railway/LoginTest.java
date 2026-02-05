@@ -66,7 +66,7 @@ public class LoginTest extends GeneralTest {
 	
 	@Test
 	public void TC03() {
-		System.out.println("TC02 - User cannot log into Railway with invalid password");
+		System.out.println("TC03 - User cannot log into Railway with invalid password");
 
 		// 1. Navigate to QA Railway Website
 		System.out.println("1. Navigate to QA Railway Website");
@@ -143,11 +143,11 @@ public class LoginTest extends GeneralTest {
 		// Create new account
 		User notActivateUser = new User(Utilities.generateRandomEmail(), Constant.PASSWORD, Constant.CONFIRMPASSWORD,
 				"12345678");
-		registerPage.register(notActivateUser);
+		RegisterPage afterRegisterPage = registerPage.register(notActivateUser);
 
 		// 2. Click on "Login" tab
 		System.out.println("2. Click on \"Login\" tab");
-		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
+		LoginPage loginPage = afterRegisterPage.gotoPage(MenuTab.LOGIN, LoginPage.class);
 
 		// 3. Enter username and password of account hasn't been activated
 		// 4. Click on "Login" button

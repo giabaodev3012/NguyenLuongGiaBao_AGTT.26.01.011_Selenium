@@ -3,7 +3,9 @@ package Railway;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import Constant.Constant;
+import Common.ActionUtils;
+import Common.ProjectUtils;
+import Common.WaitUtils;
 import DataObjects.User;
 
 public class LoginPage extends GeneralPage {
@@ -16,31 +18,29 @@ public class LoginPage extends GeneralPage {
 
 	// Elements
 	public WebElement getTxtUsername() {
-		return Constant.WEBDRIVER.findElement(txtUsername);
+		return ProjectUtils.findElement(txtUsername);
 	}
 
 	public WebElement getTxtPassword() {
-		return Constant.WEBDRIVER.findElement(txtPassword);
-	}
-
-	public WebElement getBtnLogin() {
-		return Constant.WEBDRIVER.findElement(btnLogin);
+		return ProjectUtils.findElement(txtPassword);
 	}
 
 	public WebElement getLblLoginErrorMsg() {
-		return Constant.WEBDRIVER.findElement(lblLoginErrorMsg);
+		return ProjectUtils.findElement(lblLoginErrorMsg);
 	}
 
 	// Methods
 	public <T> T login(User user, Class<T> expectedPage) {
 		// Submit login credentials
+		WaitUtils.waitForVisible(txtUsername); // wait input visible rồi mới thao tác
 		getTxtUsername().clear();
-		this.getTxtUsername().sendKeys(user.getUsername());
+		getTxtUsername().sendKeys(user.getUsername());
 
+		WaitUtils.waitForVisible(txtPassword);
 		getTxtPassword().clear();
-		this.getTxtPassword().sendKeys(user.getPassword());
+		getTxtPassword().sendKeys(user.getPassword());
 
-		this.getBtnLogin().click();
+		ActionUtils.scrollWaitAndClick(btnLogin);
 
 		try {
 			return expectedPage.getDeclaredConstructor().newInstance();
@@ -50,7 +50,8 @@ public class LoginPage extends GeneralPage {
 	}
 
 	public String getLoginErrorMessage() {
-		return this.getLblLoginErrorMsg().getText();
+		WaitUtils.waitForVisible(lblLoginErrorMsg);
+		return getLblLoginErrorMsg().getText();
 	}
 
 	public void clearUsername() {

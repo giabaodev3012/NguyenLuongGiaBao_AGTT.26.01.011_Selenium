@@ -3,7 +3,9 @@ package Railway;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
-import Constant.Constant;
+import Common.ActionUtils;
+import Common.ProjectUtils;
+import Common.WaitUtils;
 import Constant.MenuTab;
 
 public abstract class GeneralPage {
@@ -16,44 +18,32 @@ public abstract class GeneralPage {
 	private final By lblWelcomeMessage = By.xpath("//div[@class='account']/strong");
 
 	// Elements
-	protected WebElement getTabLogin() {
-		return Constant.WEBDRIVER.findElement(tabLogin);
-	}
-
-	protected WebElement getTabLogout() {
-		return Constant.WEBDRIVER.findElement(tabLogout);
-	}
-
-	protected WebElement getTabRegister() {
-		return Constant.WEBDRIVER.findElement(tabRegister);
-	}
-
-	protected WebElement getTabFAQ() {
-		return Constant.WEBDRIVER.findElement(tabFAQ);
-	}
-
 	protected WebElement getLblWelcomeMessage() {
-		return Constant.WEBDRIVER.findElement(lblWelcomeMessage);
+		return ProjectUtils.findElement(lblWelcomeMessage);
 	}
 
 	// Methods
 	public <T> T gotoPage(MenuTab tab, Class<T> pageClass) {
+		By target;
+		
 		switch (tab) {
 		case LOGIN:
-			getTabLogin().click();
+			target = tabLogin;
 			break;
 		case REGISTER:
-			getTabRegister().click();
+			target = tabRegister;
 			break;
 		case FAQ:
-			getTabFAQ().click();
+			target = tabFAQ;
 			break;
 		case LOGOUT:
-			getTabLogout().click();
+			target = tabLogout;
 			break;
 		default:
 			throw new RuntimeException("Unsupported menu tab: " + tab);
 		}
+		
+		ActionUtils.scrollWaitAndClick(target);
 
 		try {
 			return pageClass.getDeclaredConstructor().newInstance();
@@ -63,11 +53,12 @@ public abstract class GeneralPage {
 	}
 
 	public String getWelcomeMessage() {
-		return this.getLblWelcomeMessage().getText();
+		WaitUtils.waitForVisible(lblWelcomeMessage);
+		return getLblWelcomeMessage().getText();
 	}
 
 	public boolean isLogoutTabUndisplayed() {
-		return Constant.WEBDRIVER.findElements(tabLogout).size() == 0;
+		return WaitUtils.waitForInvisible(tabLogout);
 	}
 
 }
