@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import Common.WaitUtils;
 import Constant.Constant;
 
-public class HomePage extends GeneralPage {
+public class HomePage extends BasePage {
 	// Locators
 	private final By txtWelcome = By.xpath("//h1[.=\"Welcome to Safe Railway\"]");
 

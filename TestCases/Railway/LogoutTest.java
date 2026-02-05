@@ -7,7 +7,7 @@ import Constant.Constant;
 import Constant.MenuTab;
 import DataObjects.User;
 
-public class LogoutTest extends GeneralTest {
+public class LogoutTest extends TestBase {
 
 	@Test
 	public void TC06() {
@@ -36,10 +36,12 @@ public class LogoutTest extends GeneralTest {
 		HomePage afterLogoutHomePage = faqPage.gotoPage(MenuTab.LOGOUT, HomePage.class);
 
 		// Verify homepage displays
+		System.out.println("VP: Home page displays.");
 		boolean isHomePageDisplayed = afterLogoutHomePage.isHomePageDisplayed();
 		Assert.assertTrue(isHomePageDisplayed, "\"Home page is NOT displayed after logging out.\"");
 
 		// Verify "Log out" tab is disappeared
+		System.out.println("VP: \"Log out\" tab is disappeared.");
 		boolean isLogoutTabDisappeared = afterLogoutHomePage.isLogoutTabUndisplayed();
 		Assert.assertTrue(isLogoutTabDisappeared, "\"Log out\" tab is still displayed after logging out");
 	}

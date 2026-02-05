@@ -1,5 +1,5 @@
 package Railway;
 
-public class FAQPage extends GeneralPage {
+public class FAQPage extends BasePage {
 
 }

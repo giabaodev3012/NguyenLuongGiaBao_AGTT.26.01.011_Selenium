@@ -6,7 +6,7 @@ import org.testng.annotations.BeforeMethod;
 
 import Constant.Constant;
 
-public abstract class GeneralTest {
+public abstract class TestBase {
 	@BeforeMethod
 	public void beforeMethod() {
 		System.out.println("Pre-condition");

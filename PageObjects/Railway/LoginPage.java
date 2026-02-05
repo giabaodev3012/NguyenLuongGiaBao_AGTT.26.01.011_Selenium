@@ -8,7 +8,7 @@ import Common.ProjectUtils;
 import Common.WaitUtils;
 import DataObjects.User;
 
-public class LoginPage extends GeneralPage {
+public class LoginPage extends BasePage {
 
 	// Locators
 	private final By txtUsername = By.xpath("//input[@id='username']");

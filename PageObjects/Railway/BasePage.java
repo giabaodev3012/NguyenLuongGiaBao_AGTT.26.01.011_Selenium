@@ -8,7 +8,7 @@ import Common.ProjectUtils;
 import Common.WaitUtils;
 import Constant.MenuTab;
 
-public abstract class GeneralPage {
+public abstract class BasePage {
 
 	// Locators
 	private final By tabLogin = By.xpath("//div[@id='menu']//a[@href='/Account/Login.cshtml']");

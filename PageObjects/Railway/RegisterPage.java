@@ -8,7 +8,7 @@ import Common.ProjectUtils;
 import Common.WaitUtils;
 import DataObjects.User;
 
-public class RegisterPage extends GeneralPage {
+public class RegisterPage extends BasePage {
 
 	// Locator
 	private final By txtEmail = By.xpath("//input[@id='email']");
@@ -17,6 +17,8 @@ public class RegisterPage extends GeneralPage {
 	private final By txtPid = By.xpath("//input[@id='pid']");
 	private final By btnRegister = By.xpath("//input[@value='Register']");
 	private final By lblRegisterErrorMsg = By.xpath("//p[@class='message error']");
+	private final By lblPwdErrorMsg = By.xpath("//label[@for='password' and @class='validation-error']");
+	private final By lblPidErrorMsg = By.xpath("//label[@for='pid' and @class='validation-error']");
 
 	// Element
 	public WebElement getTxtEmail() {
@@ -37,6 +39,14 @@ public class RegisterPage extends GeneralPage {
 	
 	public WebElement getLblRegisterErrorMsg() {
 		return ProjectUtils.findElement(lblRegisterErrorMsg);
+	}
+	
+	public WebElement getLblPwdErrorMsg() {
+		return ProjectUtils.findElement(lblPwdErrorMsg);
+	}
+	
+	public WebElement getLblPidErrorMsg() {
+		return ProjectUtils.findElement(lblPidErrorMsg);
 	}
 
 	// Method
@@ -62,6 +72,16 @@ public class RegisterPage extends GeneralPage {
 	public String getRegisterErrorMessage() {
 		WaitUtils.waitForVisible(lblRegisterErrorMsg);
 		return getLblRegisterErrorMsg().getText();
+	}
+	
+	public String getPwdErrorMsg() {
+		WaitUtils.waitForVisible(lblPwdErrorMsg);
+		return getLblPwdErrorMsg().getText();
+	}
+	
+	public String getPidErrorMsg() {
+		WaitUtils.waitForVisible(lblPidErrorMsg);
+		return getLblPidErrorMsg().getText();
 	}
 
 }

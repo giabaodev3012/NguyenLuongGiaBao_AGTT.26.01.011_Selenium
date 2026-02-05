@@ -8,7 +8,7 @@ import Constant.Constant;
 import Constant.MenuTab;
 import DataObjects.User;
 
-public class LoginTest extends GeneralTest {
+public class LoginTest extends TestBase {
 
 	@Test
 	public void TC01() {
@@ -25,14 +25,16 @@ public class LoginTest extends GeneralTest {
 
 		// 3. Enter valid Email and Password
 		// 4. Click on "Login" button
-		System.out.println("3. Enter valid Email and Password and 4. Click on \"Login\" button ");
+		System.out.println("3. Enter valid Email and Password");
+		System.out.println("4. Click on \"Login\" button");
 
 		User validUser = new User(Constant.USERNAME, Constant.PASSWORD);
-		
+
 		HomePage loggedInHomePage = loginPage.login(validUser, HomePage.class);
 		String actualMsg = loggedInHomePage.getWelcomeMessage();
 
 		// Verify welcome message
+		System.out.println("VP: User is logged into Railway. Welcome user message is displayed. ");
 		String expectedMsg = "Welcome " + Constant.USERNAME;
 		Assert.assertEquals(actualMsg, expectedMsg, "Welcome message is not displayed as expected");
 	}
@@ -50,20 +52,25 @@ public class LoginTest extends GeneralTest {
 		System.out.println("2. Click on \"Login\" tab");
 		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
 
-		// 3. User doesn't type any words into "Username" textbox but enter valid information into "Password" textbox 
+		// 3. User doesn't type any words into "Username" textbox but enter valid
+		// information into "Password" textbox
 		// 4. Click on "Login" button
-		System.out.println("3. User doesn't type any words into \"Username\" textbox but enter valid information into \"Password\" textbox and 4. Click \"Login\" button");
-		
+		System.out.println(
+				"3. User doesn't type any words into \"Username\" textbox but enter valid information into \"Password\" textbox");
+		System.out.println("4. Click \"Login\" button");
+
 		User invalidUser = new User("", Constant.PASSWORD);
 		LoginPage afterLoginPage = loginPage.login(invalidUser, LoginPage.class);
 
 		// Verify error message
+		System.out.println(
+				"VP: User can't login and message \"There was a problem with your login and/or errors exist in your form. \" appears.");
 		String actualErrorMsg = afterLoginPage.getLoginErrorMessage();
 		String expectedErrorMsg = "There was a problem with your login and/or errors exist in your form.";
-		
+
 		Assert.assertEquals(actualErrorMsg, expectedErrorMsg, "Error message is not displayed as expected");
 	}
-	
+
 	@Test
 	public void TC03() {
 		System.out.println("TC03 - User cannot log into Railway with invalid password");
@@ -79,15 +86,18 @@ public class LoginTest extends GeneralTest {
 
 		// 3. Enter valid Email and invalid Password
 		// 4. Click on "Login" button
-		System.out.println("3. Enter valid Email and invalid Password and 4. Click \"Login\" button");
-		
+		System.out.println("3. Enter valid Email and invalid Password");
+		System.out.println("4. Click \"Login\" button");
+
 		User invalidUser = new User(Constant.USERNAME, "invalidPassword");
 		LoginPage afterLoginPage = loginPage.login(invalidUser, LoginPage.class);
 
 		// Verify error message
+		System.out.println(
+				"VP: Error message \"There was a problem with your login and/or errors exist in your form.\" is displayed");
 		String actualErrorMsg = afterLoginPage.getLoginErrorMessage();
 		String expectedErrorMsg = "There was a problem with your login and/or errors exist in your form.";
-		
+
 		Assert.assertEquals(actualErrorMsg, expectedErrorMsg, "Error message is not displayed as expected");
 	}
 
@@ -122,8 +132,11 @@ public class LoginTest extends GeneralTest {
 			if (i <= 3) {
 				System.out.println(
 						"3. Enter valid information into \"Username\" textbox except \"Password\" textbox and 4. Click on \"Login\" button ");
+				System.out.println("VP: \"Invalid username or password. Please try again\" is shown");
 				Assert.assertEquals(actualErrorMsg, expectedErrorMsg, "Error message is not displayed as expected");
 			} else {
+				System.out.println(
+						"VP: User can't login and message \"You have used 4 out of 5 login attempts. After all 5 have been used, you will be unable to login for 15 minutes.\" appears.");
 				Assert.assertEquals(actualErrorMsg, expected4thErrorMsg, "Error message is not displayed as expected");
 			}
 		}
@@ -151,12 +164,14 @@ public class LoginTest extends GeneralTest {
 
 		// 3. Enter username and password of account hasn't been activated
 		// 4. Click on "Login" button
-		System.out
-				.println("3. Enter username and password of account hasn't been activated and 4. Click \"Login\" button");
+		System.out.println("3. Enter username and password of account hasn't been activated");
+		System.out.println("4. Click \"Login\" button");
+
 		LoginPage afterLoginPage = loginPage.login(notActivateUser, LoginPage.class);
-		
 
 		// Verify error message
+		System.out.println(
+				"VP: User can't login and message \"Invalid username or password. Please try again.\" appears.");
 		String actualErrorMsg = afterLoginPage.getLoginErrorMessage();
 		String expectedErrorMsg = "Invalid username or password. Please try again.";
 
