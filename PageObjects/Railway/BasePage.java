@@ -11,10 +11,7 @@ import Constant.MenuTab;
 public abstract class BasePage {
 
 	// Locators
-	private final By tabLogin = By.xpath("//div[@id='menu']//a[@href='/Account/Login.cshtml']");
-	private final By tabLogout = By.xpath("//div[@id='menu']//a[@href='/Account/Logout']");
-	private final By tabRegister = By.xpath("//div[@id='menu']//a[@href='/Account/Register.cshtml']");
-	private final By tabFAQ = By.xpath("//div[@id='menu']//a[@href='/Page/FAQ.cshtml']");
+	private static final String menuXpath = "//div[@id='menu']//a[.='%s']";
 	private final By lblWelcomeMessage = By.xpath("//div[@class='account']/strong");
 
 	// Elements
@@ -23,26 +20,13 @@ public abstract class BasePage {
 	}
 
 	// Methods
+	protected By getMenuLocator(String menuText) {
+		return By.xpath(String.format(menuXpath, menuText));
+	}
+
 	public <T> T gotoPage(MenuTab tab, Class<T> pageClass) {
-		By target;
-		
-		switch (tab) {
-		case LOGIN:
-			target = tabLogin;
-			break;
-		case REGISTER:
-			target = tabRegister;
-			break;
-		case FAQ:
-			target = tabFAQ;
-			break;
-		case LOGOUT:
-			target = tabLogout;
-			break;
-		default:
-			throw new RuntimeException("Unsupported menu tab: " + tab);
-		}
-		
+		By target = getMenuLocator(tab.getText());
+
 		ActionUtils.scrollWaitAndClick(target);
 
 		try {
@@ -58,7 +42,7 @@ public abstract class BasePage {
 	}
 
 	public boolean isLogoutTabUndisplayed() {
-		return WaitUtils.waitForInvisible(tabLogout);
+		return WaitUtils.waitForInvisible(getMenuLocator(MenuTab.LOGOUT.getText()));
 	}
 
 }
