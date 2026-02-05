@@ -32,14 +32,21 @@ public class LoginPage extends GeneralPage {
 	}
 
 	// Methods
-	public HomePage login(User user) {
+	public <T> T login(User user, Class<T> expectedPage) {
 		// Submit login credentials
+		getTxtUsername().clear();
 		this.getTxtUsername().sendKeys(user.getUsername());
+
+		getTxtPassword().clear();
 		this.getTxtPassword().sendKeys(user.getPassword());
+
 		this.getBtnLogin().click();
 
-		// Land on Home page
-		return new HomePage();
+		try {
+			return expectedPage.getDeclaredConstructor().newInstance();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public String getLoginErrorMessage() {

@@ -1,11 +1,11 @@
 package Railway;
 
 import org.testng.Assert;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import Common.Utilities;
 import Constant.Constant;
+import Constant.MenuTab;
 import DataObjects.User;
 
 public class LoginTest extends GeneralTest {
@@ -21,33 +21,25 @@ public class LoginTest extends GeneralTest {
 
 		// 2. Click on "Login" tab
 		System.out.println("2. Click on \"Login\" tab");
-		LoginPage loginPage = homePage.gotoLoginPage();
+		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
 
 		// 3. Enter valid Email and Password
 		// 4. Click on "Login" button
 		System.out.println("3. Enter valid Email and Password and 4. Click on \"Login\" button ");
 
 		User validUser = new User(Constant.USERNAME, Constant.PASSWORD);
-		String actualMsg = loginPage.login(validUser).getWelcomeMessage();
+		
+		HomePage loggedInHomePage = loginPage.login(validUser, HomePage.class);
+		String actualMsg = loggedInHomePage.getWelcomeMessage();
 
 		// Verify welcome message
 		String expectedMsg = "Welcome " + Constant.USERNAME;
 		Assert.assertEquals(actualMsg, expectedMsg, "Welcome message is not displayed as expected");
 	}
 
-	@DataProvider(name = "invalidLoginData")
-	public Object[][] invalidLoginData() {
-		return new Object[][] {
-				{ "TC02 - User cannot login with blank \\\"Username\\\" textbox", new User("", Constant.PASSWORD),
-						"There was a problem with your login and/or errors exist in your form." },
-				{ "TC03 - User cannot log into Railway with invalid password",
-						new User(Constant.USERNAME, "invalidPassword"),
-						"There was a problem with your login and/or errors exist in your form." }, };
-	}
-
-	@Test(dataProvider = "invalidLoginData")
-	public void TC02_TC03(String caseName, User user, String expectedErrorMsg) {
-		System.out.println(caseName);
+	@Test
+	public void TC02() {
+		System.out.println("TC02 - User cannot login with blank \\\"Username\\\" textbox");
 
 		// 1. Navigate to QA Railway Website
 		System.out.println("1. Navigate to QA Railway Website");
@@ -56,16 +48,46 @@ public class LoginTest extends GeneralTest {
 
 		// 2. Click on "Login" tab
 		System.out.println("2. Click on \"Login\" tab");
-		LoginPage loginPage = homePage.gotoLoginPage();
+		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
 
-		// 3. User enter invalid data
+		// 3. User doesn't type any words into "Username" textbox but enter valid information into "Password" textbox 
 		// 4. Click on "Login" button
-		System.out.println("3. User enter invalid data and 4. Click \"Login\" button");
-		loginPage.login(user);
+		System.out.println("3. User doesn't type any words into \"Username\" textbox but enter valid information into \"Password\" textbox and 4. Click \"Login\" button");
+		
+		User invalidUser = new User("", Constant.PASSWORD);
+		LoginPage afterLoginPage = loginPage.login(invalidUser, LoginPage.class);
 
 		// Verify error message
-		String actualErrorMsg = loginPage.getLoginErrorMessage();
+		String actualErrorMsg = afterLoginPage.getLoginErrorMessage();
+		String expectedErrorMsg = "There was a problem with your login and/or errors exist in your form.";
+		
+		Assert.assertEquals(actualErrorMsg, expectedErrorMsg, "Error message is not displayed as expected");
+	}
+	
+	@Test
+	public void TC03() {
+		System.out.println("TC02 - User cannot log into Railway with invalid password");
 
+		// 1. Navigate to QA Railway Website
+		System.out.println("1. Navigate to QA Railway Website");
+		HomePage homePage = new HomePage();
+		homePage.open();
+
+		// 2. Click on "Login" tab
+		System.out.println("2. Click on \"Login\" tab");
+		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
+
+		// 3. Enter valid Email and invalid Password
+		// 4. Click on "Login" button
+		System.out.println("3. Enter valid Email and invalid Password and 4. Click \"Login\" button");
+		
+		User invalidUser = new User(Constant.USERNAME, "invalidPassword");
+		LoginPage afterLoginPage = loginPage.login(invalidUser, LoginPage.class);
+
+		// Verify error message
+		String actualErrorMsg = afterLoginPage.getLoginErrorMessage();
+		String expectedErrorMsg = "There was a problem with your login and/or errors exist in your form.";
+		
 		Assert.assertEquals(actualErrorMsg, expectedErrorMsg, "Error message is not displayed as expected");
 	}
 
@@ -80,7 +102,7 @@ public class LoginTest extends GeneralTest {
 
 		// 2. Click on "Login" tab
 		System.out.println("2. Click on \"Login\" tab");
-		LoginPage loginPage = homePage.gotoLoginPage(); // sửa cái nì
+		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
 
 		// 3. Enter valid information into "Username" textbox except "Password" textbox.
 		// 4. Click on "Login" button
@@ -92,14 +114,10 @@ public class LoginTest extends GeneralTest {
 		System.out.println("5. Repeat step 3 and 4 three more times");
 		for (int i = 1; i <= 4; i++) {
 
-			// clear data giữa các lần nhập
-			loginPage.clearUsername();
-			loginPage.clearPassword();
-
 			User invalidUser = new User(Constant.USERNAME, "invalid");
-			loginPage.login(invalidUser);
+			LoginPage afterAttemptPage = loginPage.login(invalidUser, LoginPage.class);
 
-			String actualErrorMsg = loginPage.getLoginErrorMessage();
+			String actualErrorMsg = afterAttemptPage.getLoginErrorMessage();
 
 			if (i <= 3) {
 				System.out.println(
@@ -120,7 +138,7 @@ public class LoginTest extends GeneralTest {
 
 		// Pre-condition: a not-active account is existing
 		// Click on "Register" tab
-		RegisterPage registerPage = homePage.gotoRegisterPage();
+		RegisterPage registerPage = homePage.gotoPage(MenuTab.REGISTER, RegisterPage.class);
 
 		// Create new account
 		User notActivateUser = new User(Utilities.generateRandomEmail(), Constant.PASSWORD, Constant.CONFIRMPASSWORD,
@@ -129,16 +147,17 @@ public class LoginTest extends GeneralTest {
 
 		// 2. Click on "Login" tab
 		System.out.println("2. Click on \"Login\" tab");
-		LoginPage loginPage = homePage.gotoLoginPage();
+		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
 
 		// 3. Enter username and password of account hasn't been activated
 		// 4. Click on "Login" button
 		System.out
 				.println("3. Enter username and password of account hasn't been activated and 4. Click \"Login\" button");
-		loginPage.login(notActivateUser);
+		LoginPage afterLoginPage = loginPage.login(notActivateUser, LoginPage.class);
+		
 
 		// Verify error message
-		String actualErrorMsg = loginPage.getLoginErrorMessage();
+		String actualErrorMsg = afterLoginPage.getLoginErrorMessage();
 		String expectedErrorMsg = "Invalid username or password. Please try again.";
 
 		Assert.assertEquals(actualErrorMsg, expectedErrorMsg, "Error message is not displayed as expected");
