@@ -2,7 +2,6 @@ package Railway;
 
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
 import Constant.Constant;
 import Constant.MenuTab;
 import DataObjects.User;
@@ -52,7 +51,6 @@ public class CreateAccountTest extends TestBase {
 		System.out.println("4. Click on \"Register\" button");
 		registerPage = registerPage.register(invalidUser);
 
-		// Verify error message
 		System.out.println(
 				"VP: Message \"There're errors in the form. Please correct the errors and try again.\" appears above the form.");
 		String actualErrorMsg = registerPage.getRegisterErrorMessage();
@@ -69,14 +67,28 @@ public class CreateAccountTest extends TestBase {
 	
 	@Test
 	public void TC09() {
-		System.out.println("User create and activate account");
-		//1. Navigate to QA Railway Website
-		//2. Click on "Create an account"
-		//3. Enter valid information into all fields
-		//4. Click on "Register" button
-		//5. Get email information (webmail address, mailbox and password) and navigate to that webmail 
-		//6. Login to the mailbox
-		//7. Open email with subject containing "Please confirm your account"  and the email of the new account at step 3
-		//8. Click on the activate link
+		System.out.println("Prepare data");
+		
+		System.out.println("TC09 - User create and activate account");
+		
+		System.out.println("1. Navigate to QA Railway Website");
+		HomePage homePage = new HomePage();
+		homePage.open();
+		
+		System.out.println("2. Click on \"Create an account\"");
+		RegisterPage registerPage = homePage.clickCreateAnAccount();
+		
+		
+		System.out.println("3. Enter valid information into all fields");
+		
+		System.out.println("4. Click on \"Register\" button");
+		
+		System.out.println("5. Get email information (webmail address, mailbox and password) and navigate to that webmail");
+		
+		System.out.println("6. Login to the mailbox");
+		
+		System.out.println("7. Open email with subject containing \"Please confirm your account\"  and the email of the new account at step 3");
+		
+		System.out.println("8. Click on the activate link");
 	}
 }

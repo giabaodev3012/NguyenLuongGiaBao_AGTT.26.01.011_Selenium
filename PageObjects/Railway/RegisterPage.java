@@ -2,8 +2,6 @@ package Railway;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
-import Common.ActionUtils;
 import Common.ProjectUtils;
 import Common.WaitUtils;
 import DataObjects.User;
@@ -48,39 +46,56 @@ public class RegisterPage extends BasePage {
 	public WebElement getLblPidErrorMsg() {
 		return ProjectUtils.findElement(lblPidErrorMsg);
 	}
-
+	
+	public WebElement getBtnRegister() {
+		return ProjectUtils.findElement(btnRegister);
+	}
+	
 	// Method
 	public RegisterPage register(User user) {
-		// Submit register information
+		// Email
 		WaitUtils.waitForVisible(txtEmail);
+		ProjectUtils.scrollDownByElement(getTxtEmail());
 		getTxtEmail().sendKeys(user.getUsername());
 		
+		// Password
 		WaitUtils.waitForVisible(txtPassword);
+		ProjectUtils.scrollDownByElement(getTxtPassword());
 		getTxtPassword().sendKeys(user.getPassword());
 		
+		// Confirm password
 		WaitUtils.waitForVisible(txtConfirmPassword);
-		this.getTxtConfirmPassword().sendKeys(user.getConfirmpassword());
+		ProjectUtils.scrollDownByElement(getTxtConfirmPassword());
+		getTxtConfirmPassword().sendKeys(user.getConfirmpassword());
 		
+		// Pid
 		WaitUtils.waitForVisible(txtPid);
+		ProjectUtils.scrollDownByElement(getTxtPid());
 		getTxtPid().sendKeys(user.getPid());
 		
-		ActionUtils.scrollWaitAndClick(btnRegister);
+		// Register button
+		WaitUtils.waitForClickable(btnRegister);
+		ProjectUtils.scrollDownByElement(getBtnRegister());
+		getBtnRegister().click();
 
 		return this;
 	}
 	
 	public String getRegisterErrorMessage() {
 		WaitUtils.waitForVisible(lblRegisterErrorMsg);
+		ProjectUtils.scrollDownByElement(getLblRegisterErrorMsg());
 		return getLblRegisterErrorMsg().getText();
 	}
 	
 	public String getPwdErrorMsg() {
 		WaitUtils.waitForVisible(lblPwdErrorMsg);
+		ProjectUtils.scrollDownByElement(getLblPwdErrorMsg());
 		return getLblPwdErrorMsg().getText();
 	}
 	
 	public String getPidErrorMsg() {
 		WaitUtils.waitForVisible(lblPidErrorMsg);
+		ProjectUtils.scrollDownByElement(getLblPidErrorMsg());
 		return getLblPidErrorMsg().getText();
 	}
 

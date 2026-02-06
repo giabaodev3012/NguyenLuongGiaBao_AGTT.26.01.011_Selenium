@@ -2,8 +2,6 @@ package Railway;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
-import Common.ActionUtils;
 import Common.ProjectUtils;
 import Common.WaitUtils;
 import DataObjects.User;
@@ -21,9 +19,14 @@ public class LoginPage extends BasePage {
 		return ProjectUtils.findElement(txtUsername);
 	}
 
+	public WebElement getBtnLogin() {
+		return ProjectUtils.findElement(btnLogin);
+	}
+	
 	public WebElement getTxtPassword() {
 		return ProjectUtils.findElement(txtPassword);
 	}
+	
 
 	public WebElement getLblLoginErrorMsg() {
 		return ProjectUtils.findElement(lblLoginErrorMsg);
@@ -31,16 +34,22 @@ public class LoginPage extends BasePage {
 
 	// Methods
 	public <T> T login(User user, Class<T> expectedPage) {
-		// Submit login credentials
-		WaitUtils.waitForVisible(txtUsername); // wait input visible rồi mới thao tác
+		// Username
+		WaitUtils.waitForVisible(txtUsername);
+		ProjectUtils.scrollDownByElement(getTxtUsername());
 		getTxtUsername().clear();
 		getTxtUsername().sendKeys(user.getUsername());
 
+		// Password
 		WaitUtils.waitForVisible(txtPassword);
+		ProjectUtils.scrollDownByElement(getTxtPassword());
 		getTxtPassword().clear();
 		getTxtPassword().sendKeys(user.getPassword());
 
-		ActionUtils.scrollWaitAndClick(btnLogin);
+		// Login button
+		WaitUtils.waitForClickable(btnLogin);
+		ProjectUtils.scrollDownByElement(getBtnLogin());
+		getBtnLogin().click();
 
 		try {
 			return expectedPage.getDeclaredConstructor().newInstance();
@@ -51,14 +60,19 @@ public class LoginPage extends BasePage {
 
 	public String getLoginErrorMessage() {
 		WaitUtils.waitForVisible(lblLoginErrorMsg);
+		ProjectUtils.scrollDownByElement(getLblLoginErrorMsg());
 		return getLblLoginErrorMsg().getText();
 	}
 
 	public void clearUsername() {
+		WaitUtils.waitForVisible(txtUsername);
+		ProjectUtils.scrollDownByElement(getTxtUsername());
 		getTxtUsername().clear();
 	}
 
 	public void clearPassword() {
+		WaitUtils.waitForVisible(txtPassword);
+		ProjectUtils.scrollDownByElement(getTxtPassword());
 		getTxtPassword().clear();
 	}
 

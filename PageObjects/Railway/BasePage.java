@@ -2,8 +2,6 @@ package Railway;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-
-import Common.ActionUtils;
 import Common.ProjectUtils;
 import Common.WaitUtils;
 import Constant.MenuTab;
@@ -11,7 +9,7 @@ import Constant.MenuTab;
 public abstract class BasePage {
 
 	// Locators
-	private static final String menuXpath = "//div[@id='menu']//a[.='%s']";
+	private static String menuXpath = "//div[@id='menu']//a[.='%s']";
 	private final By lblWelcomeMessage = By.xpath("//div[@class='account']/strong");
 
 	// Elements
@@ -27,7 +25,10 @@ public abstract class BasePage {
 	public <T> T gotoPage(MenuTab tab, Class<T> pageClass) {
 		By target = getMenuLocator(tab.getText());
 
-		ActionUtils.scrollWaitAndClick(target);
+		WaitUtils.waitForClickable(target);
+		WebElement getMenuElement = ProjectUtils.findElement(target);
+		ProjectUtils.scrollDownByElement(getMenuElement);
+		getMenuElement.click();
 
 		try {
 			return pageClass.getDeclaredConstructor().newInstance();
@@ -38,6 +39,7 @@ public abstract class BasePage {
 
 	public String getWelcomeMessage() {
 		WaitUtils.waitForVisible(lblWelcomeMessage);
+		ProjectUtils.scrollDownByElement(getLblWelcomeMessage());
 		return getLblWelcomeMessage().getText();
 	}
 
