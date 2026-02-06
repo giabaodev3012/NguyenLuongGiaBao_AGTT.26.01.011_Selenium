@@ -16,4 +16,12 @@ public class ProjectUtils {
 		((JavascriptExecutor) Constant.WEBDRIVER).executeScript("arguments[0].scrollIntoView({block:'center'});",
 				element);
 	}
+
+	public static boolean isElementDisplayed(By locator) {
+		try {
+			return Constant.WEBDRIVER.findElement(locator).isDisplayed();
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

@@ -2,6 +2,7 @@ package Railway;
 
 import org.openqa.selenium.By;
 
+import Common.ProjectUtils;
 import Common.WaitUtils;
 import Constant.Constant;
 
@@ -19,6 +20,6 @@ public class HomePage extends BasePage {
 
 	public boolean isHomePageDisplayed() {
 		WaitUtils.waitForVisible(txtWelcome);
-		return true;
+		return ProjectUtils.isElementDisplayed(txtWelcome);
 	}
 }

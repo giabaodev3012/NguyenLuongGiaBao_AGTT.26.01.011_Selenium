@@ -30,8 +30,12 @@ public class WaitUtils {
 		return locator;
 	}
 
-	public static boolean waitForInvisible(By locator) {
-		WebDriverWait wait = new WebDriverWait(Constant.WEBDRIVER, Duration.ofSeconds(Constant.TIMEOUT));
-		return wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+	public static void waitForInvisible(By locator, int timeout) {
+		WebDriverWait wait = new WebDriverWait(Constant.WEBDRIVER, Duration.ofSeconds(timeout));
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+	}
+
+	public static void waitForInvisible(By locator) {
+		waitForInvisible(locator, Constant.TIMEOUT);
 	}
 }

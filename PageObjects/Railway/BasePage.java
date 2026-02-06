@@ -41,8 +41,9 @@ public abstract class BasePage {
 		return getLblWelcomeMessage().getText();
 	}
 
-	public boolean isLogoutTabUndisplayed() {
-		return WaitUtils.waitForInvisible(getMenuLocator(MenuTab.LOGOUT.getText()));
+	public boolean isLogoutTabDisappeared() {
+		By logoutTab = getMenuLocator(MenuTab.LOGOUT.getText());
+		WaitUtils.waitForInvisible(logoutTab);
+		return !ProjectUtils.isElementDisplayed(logoutTab);
 	}
-
 }
