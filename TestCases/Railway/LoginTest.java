@@ -7,6 +7,7 @@ import Common.Utilities;
 import Constant.Constant;
 import Constant.MenuTab;
 import DataObjects.User;
+import GuerrillaMail.GuerrillaMailPage;
 
 public class LoginTest extends TestBase {
 
@@ -123,8 +124,14 @@ public class LoginTest extends TestBase {
 	public void TC05() {
 		System.out.println("Prepare data");
 		String expectedErrorMsg = "Invalid username or password. Please try again.";
-		User notActivateUser = new User(Utilities.generateRandomEmail(), Constant.PASSWORD, Constant.CONFIRMPASSWORD,
-				"12345678");
+		// Generate email by GuerrillaMail
+		GuerrillaMailPage mailPage = new GuerrillaMailPage();
+		mailPage.open();
+
+		String username = Utilities.generateRandomUsername(); // tạo user random
+		String email = mailPage.createEmailAndGetIt(username);
+
+		User notActivateUser = new User(email, Constant.PASSWORD, Constant.CONFIRMPASSWORD, "12345678");
 
 		System.out.println("TC05 - User can't login with an account hasn't been activated");
 

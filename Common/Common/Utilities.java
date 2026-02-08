@@ -1,8 +1,12 @@
 package Common;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Utilities {
-	public static String generateRandomEmail() {
-		long timestamp = System.currentTimeMillis();
-		return "testuser" + timestamp + "@gmail.com";
+
+	public static String generateRandomUsername() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMddHHmm");
+		return "test" + dtf.format(LocalDateTime.now());
 	}
 }

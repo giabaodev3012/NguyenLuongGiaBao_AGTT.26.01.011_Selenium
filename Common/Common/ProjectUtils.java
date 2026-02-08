@@ -24,4 +24,10 @@ public class ProjectUtils {
 			return false;
 		}
 	}
+
+	public static void switchToLastWindow() {
+		for (String windowHandle : Constant.WEBDRIVER.getWindowHandles()) {
+			Constant.WEBDRIVER.switchTo().window(windowHandle);
+		}
+	}
 }

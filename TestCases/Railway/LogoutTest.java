@@ -13,7 +13,7 @@ public class LogoutTest extends TestBase {
 	public void TC06() {
 		System.out.println("Prepare data");
 		User validUser = new User(Constant.USERNAME, Constant.PASSWORD);
-		
+
 		System.out.println("TC06 - User is redirected to Home page after logging out");
 
 		System.out.println("1. Navigate to QA Railway Website");

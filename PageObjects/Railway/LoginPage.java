@@ -22,11 +22,10 @@ public class LoginPage extends BasePage {
 	public WebElement getBtnLogin() {
 		return ProjectUtils.findElement(btnLogin);
 	}
-	
+
 	public WebElement getTxtPassword() {
 		return ProjectUtils.findElement(txtPassword);
 	}
-	
 
 	public WebElement getLblLoginErrorMsg() {
 		return ProjectUtils.findElement(lblLoginErrorMsg);
