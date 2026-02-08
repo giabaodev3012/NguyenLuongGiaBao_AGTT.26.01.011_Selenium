@@ -3,6 +3,7 @@ package Railway;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import Common.TestUtils;
 import Constant.Constant;
 import Constant.MenuTab;
 import DataObjects.User;
@@ -12,7 +13,8 @@ public class LogoutTest extends TestBase {
 	@Test
 	public void TC06() {
 		System.out.println("Prepare data");
-		User validUser = new User(Constant.USERNAME, Constant.PASSWORD);
+		User activateUser = TestUtils.createActivatedAccount();
+		User validUser = new User(activateUser.getUsername(), Constant.PASSWORD);
 
 		System.out.println("TC06 - User is redirected to Home page after logging out");
 

@@ -4,6 +4,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import Common.ProjectUtils;
+import Common.TestUtils;
 import Common.Utilities;
 import Constant.Constant;
 import Constant.MenuTab;
@@ -15,7 +16,8 @@ public class CreateAccountTest extends TestBase {
 	@Test
 	public void TC07() {
 		System.out.println("Prepare data");
-		User validUser = new User(Constant.USERNAME, Constant.PASSWORD, Constant.CONFIRMPASSWORD, "12345678");
+		User activateUser = TestUtils.createActivatedAccount();
+		User validUser = new User(activateUser.getUsername(), Constant.PASSWORD, Constant.CONFIRMPASSWORD, "12345678");
 		String expectedErrorMsg = "This email address is already in use.";
 
 		System.out.println("TC07 - User can't create account with an already in-use email");
@@ -39,11 +41,14 @@ public class CreateAccountTest extends TestBase {
 	@Test
 	public void TC08() {
 		System.out.println("Prepare data");
-		User invalidUser = new User(Constant.USERNAME, "", "", "");
+		User activateUser = TestUtils.createActivatedAccount();
+		User invalidUser = new User(activateUser.getUsername(), "", "", "");
 		String expectedErrorMsg = "There're errors in the form. Please correct the errors and try again.";
 		String expectedPwdErrorMsg = "Invalid password length";
 		String expectedPidErrorMsg = "Invalid ID length";
 
+		System.out.println("TC08 - User can't create account while password and PID fields are empty");
+		
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();

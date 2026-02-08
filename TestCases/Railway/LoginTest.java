@@ -3,6 +3,7 @@ package Railway;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import Common.TestUtils;
 import Common.Utilities;
 import Constant.Constant;
 import Constant.MenuTab;
@@ -14,8 +15,8 @@ public class LoginTest extends TestBase {
 	@Test
 	public void TC01() {
 		System.out.println("Prepare data");
-		User validUser = new User(Constant.USERNAME, Constant.PASSWORD);
-		String expectedMsg = "Welcome " + Constant.USERNAME;
+		User validUser = TestUtils.createActivatedAccount();
+		String expectedMsg = "Welcome " + validUser.getUsername();
 
 		System.out.println("TC01 - User can log into Railway with valid username and password");
 
@@ -64,7 +65,8 @@ public class LoginTest extends TestBase {
 	@Test
 	public void TC03() {
 		System.out.println("Prepare data");
-		User invalidUser = new User(Constant.USERNAME, "invalidPassword");
+		User activateUser = TestUtils.createActivatedAccount();
+		User invalidUser = new User(activateUser.getUsername(), "invalidPassword");
 		String expectedErrorMsg = "There was a problem with your login and/or errors exist in your form.";
 
 		System.out.println("TC03 - User cannot log into Railway with invalid password");
@@ -89,7 +91,9 @@ public class LoginTest extends TestBase {
 	@Test
 	public void TC04() {
 		System.out.println("Prepare data");
-		User invalidUser = new User(Constant.USERNAME, "invalid");
+		User activateUser = TestUtils.createActivatedAccount();
+		User invalidUser = new User(activateUser.getUsername(), "invalid");
+		
 		String expectedErrorMsg = "Invalid username or password. Please try again.";
 		String expected4thErrorMsg = "You have used 4 out of 5 login attempts. After all 5 have been used, you will be unable to login for 15 minutes.";
 
