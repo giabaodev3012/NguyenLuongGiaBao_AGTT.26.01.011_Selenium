@@ -14,7 +14,8 @@ public class PasswordResetPage extends BasePage {
 	private By txtResetToken = By.xpath("//input[@id='resetToken']");
 	private By btnResetPassword = By.xpath("//input[@value='Reset Password']");
 	private By lblErrorMsg = By.xpath("(//div[@id='content']//p[contains(@class,'message')])");
-
+	private By lblPwdErrorMsg = By.xpath("//label[@class='validation-error']");
+			
 	// Element
 	public WebElement getTxtNewPassword() {
 		return ProjectUtils.findElement(txtNewPassword);
@@ -30,6 +31,10 @@ public class PasswordResetPage extends BasePage {
 
 	public WebElement getLblErrorMsg() {
 		return ProjectUtils.findElement(lblErrorMsg);
+	}
+	
+	public WebElement getLblPwdErrorMsg() {
+		return ProjectUtils.findElement(lblPwdErrorMsg);
 	}
 
 	public WebElement getTxtResetToken() {
@@ -57,6 +62,12 @@ public class PasswordResetPage extends BasePage {
 		WaitUtils.waitForVisible(lblErrorMsg);
 		ProjectUtils.scrollDownByElement(getLblErrorMsg());
 		return getLblErrorMsg().getText();
+	}
+	
+	public String getPasswordErrorMsg() {
+		WaitUtils.waitForVisible(lblPwdErrorMsg);
+		ProjectUtils.scrollDownByElement(getLblPwdErrorMsg());
+		return getLblPwdErrorMsg().getText();
 	}
 
 	public boolean isPasswordChangeFormDisplayed() {
