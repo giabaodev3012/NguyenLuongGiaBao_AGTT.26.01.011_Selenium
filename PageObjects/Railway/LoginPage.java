@@ -9,11 +9,12 @@ import DataObjects.User;
 public class LoginPage extends BasePage {
 
 	// Locators
-	private final By txtUsername = By.xpath("//input[@id='username']");
-	private final By txtPassword = By.xpath("//input[@id='password']");
-	private final By btnLogin = By.xpath("//input[@value='login']");
-	private final By lblLoginErrorMsg = By.xpath("//p[@class='message error LoginForm']");
-
+	private By txtUsername = By.xpath("//input[@id='username']");
+	private By txtPassword = By.xpath("//input[@id='password']");
+	private By btnLogin = By.xpath("//input[@value='login']");
+	private By lblLoginErrorMsg = By.xpath("//p[@class='message error LoginForm']");
+	private By lnkForgotPwd = By.xpath("//a[contains(text(), \"Forgot Password\")]");
+	
 	// Elements
 	public WebElement getTxtUsername() {
 		return ProjectUtils.findElement(txtUsername);
@@ -29,6 +30,10 @@ public class LoginPage extends BasePage {
 
 	public WebElement getLblLoginErrorMsg() {
 		return ProjectUtils.findElement(lblLoginErrorMsg);
+	}
+	
+	public WebElement getLnkForgotPwd() {
+		return ProjectUtils.findElement(lnkForgotPwd);
 	}
 
 	// Methods
@@ -73,6 +78,14 @@ public class LoginPage extends BasePage {
 		WaitUtils.waitForVisible(txtPassword);
 		ProjectUtils.scrollDownByElement(getTxtPassword());
 		getTxtPassword().clear();
+	}
+	
+	public ForgotPasswordPage clickForgotPwd() {
+		WaitUtils.waitForClickable(lnkForgotPwd);
+		ProjectUtils.scrollDownByElement(getLnkForgotPwd());
+		getLnkForgotPwd().click();
+		
+		return new ForgotPasswordPage();
 	}
 
 }

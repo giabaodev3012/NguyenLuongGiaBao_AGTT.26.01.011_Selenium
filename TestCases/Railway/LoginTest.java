@@ -65,8 +65,8 @@ public class LoginTest extends TestBase {
 	@Test
 	public void TC03() {
 		System.out.println("Prepare data");
-		User activateUser = TestUtils.createActivatedAccount();
-		User invalidUser = new User(activateUser.getUsername(), "invalidPassword");
+		User activeUser = TestUtils.createActivatedAccount();
+		User invalidUser = new User(activeUser.getUsername(), "invalidPassword");
 		String expectedErrorMsg = "There was a problem with your login and/or errors exist in your form.";
 
 		System.out.println("TC03 - User cannot log into Railway with invalid password");
@@ -91,8 +91,8 @@ public class LoginTest extends TestBase {
 	@Test
 	public void TC04() {
 		System.out.println("Prepare data");
-		User activateUser = TestUtils.createActivatedAccount();
-		User invalidUser = new User(activateUser.getUsername(), "invalid");
+		User activeUser = TestUtils.createActivatedAccount();
+		User invalidUser = new User(activeUser.getUsername(), "invalid");
 		
 		String expectedErrorMsg = "Invalid username or password. Please try again.";
 		String expected4thErrorMsg = "You have used 4 out of 5 login attempts. After all 5 have been used, you will be unable to login for 15 minutes.";

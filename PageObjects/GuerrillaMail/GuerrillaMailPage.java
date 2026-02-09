@@ -19,6 +19,8 @@ public class GuerrillaMailPage extends BasePage {
 	private By chkScramble = By.xpath("//span//input[@type='checkbox']");
 	private By lblConfirmAccountMsg = By.xpath("//td[contains(text(), \"Please confirm your account\")]");
 	private By lnkActivate = By.xpath("//div[@class='email_body']//a[contains(@href, 'Account/Confirm')]");
+	private By lblResetPwdMsg = By.xpath("//td[contains(text(), \"Please reset your password\")]");
+	private By lnkResetPwd = By.xpath("//div[@class='email_body']//a[contains(@href, 'Account/PasswordReset')]");
 
 	// Element
 	public GuerrillaMailPage open() {
@@ -52,6 +54,14 @@ public class GuerrillaMailPage extends BasePage {
 
 	public WebElement getLnkActivate() {
 		return ProjectUtils.findElement(lnkActivate);
+	}
+	
+	public WebElement getLblResetPwdMsg() {
+		return ProjectUtils.findElement(lblResetPwdMsg);
+	}
+
+	public WebElement getLnkResetPwd() {
+		return ProjectUtils.findElement(lnkResetPwd);
 	}
 
 	// Method
@@ -96,17 +106,25 @@ public class GuerrillaMailPage extends BasePage {
 	}
 
 	public GuerrillaMailPage openConfirmEmail() {
-		WaitUtils.waitForVisible(lblConfirmAccountMsg, 20);
+		WaitUtils.waitForVisible(lblConfirmAccountMsg, 30);
 		ProjectUtils.scrollDownByElement(getLblConfirmAccountMsg());
 		getLblConfirmAccountMsg().click();
 
-		return this;
-	}
-
-	public GuerrillaMailPage clickActivateLink() {
 		WaitUtils.waitForVisible(lnkActivate);
 		ProjectUtils.scrollDownByElement(getLnkActivate());
 		getLnkActivate().click();
+
+		return this;
+	}
+	
+	public GuerrillaMailPage openResetPwdEmail() {
+		WaitUtils.waitForVisible(lblResetPwdMsg, 30);
+		ProjectUtils.scrollDownByElement(getLblResetPwdMsg());
+		getLblResetPwdMsg().click();
+
+		WaitUtils.waitForVisible(lnkResetPwd);
+		ProjectUtils.scrollDownByElement(getLnkResetPwd());
+		getLnkResetPwd().click();
 
 		return this;
 	}

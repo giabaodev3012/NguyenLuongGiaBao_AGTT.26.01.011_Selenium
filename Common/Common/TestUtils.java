@@ -28,7 +28,6 @@ public class TestUtils {
 		mailPage.open();
 		mailPage.setMailboxUsername(username);
 		mailPage.openConfirmEmail();
-		mailPage.clickActivateLink();
 		ProjectUtils.switchToLastWindow();
 
 		return user;

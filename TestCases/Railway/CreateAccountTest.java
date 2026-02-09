@@ -16,8 +16,7 @@ public class CreateAccountTest extends TestBase {
 	@Test
 	public void TC07() {
 		System.out.println("Prepare data");
-		User activateUser = TestUtils.createActivatedAccount();
-		User validUser = new User(activateUser.getUsername(), Constant.PASSWORD, Constant.CONFIRMPASSWORD, "12345678");
+		User activeUser = TestUtils.createActivatedAccount();
 		String expectedErrorMsg = "This email address is already in use.";
 
 		System.out.println("TC07 - User can't create account with an already in-use email");
@@ -31,7 +30,7 @@ public class CreateAccountTest extends TestBase {
 
 		System.out.println("3. Enter information of the created account in Pre-condition");
 		System.out.println("4. Click on \"Register\" button");
-		registerPage = registerPage.register(validUser);
+		registerPage = registerPage.register(activeUser);
 
 		System.out.println("VP: Error message \"This email address is already in use.\" displays above the form.");
 		String actualErrorMsg = registerPage.getRegisterErrorMessage();
@@ -41,14 +40,14 @@ public class CreateAccountTest extends TestBase {
 	@Test
 	public void TC08() {
 		System.out.println("Prepare data");
-		User activateUser = TestUtils.createActivatedAccount();
-		User invalidUser = new User(activateUser.getUsername(), "", "", "");
+		User activeUser = TestUtils.createActivatedAccount();
+		User invalidUser = new User(activeUser.getUsername(), "", "", "");
 		String expectedErrorMsg = "There're errors in the form. Please correct the errors and try again.";
 		String expectedPwdErrorMsg = "Invalid password length";
 		String expectedPidErrorMsg = "Invalid ID length";
 
 		System.out.println("TC08 - User can't create account while password and PID fields are empty");
-		
+
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
@@ -127,10 +126,8 @@ public class CreateAccountTest extends TestBase {
 
 		System.out.println(
 				"7. Open email with subject containing \"Please confirm your account\"  and the email of the new account at step 3");
-		mailPage.openConfirmEmail();
-
 		System.out.println("8. Click on the activate link");
-		mailPage.clickActivateLink();
+		mailPage.openConfirmEmail();
 		ProjectUtils.switchToLastWindow();
 
 		System.out.println(

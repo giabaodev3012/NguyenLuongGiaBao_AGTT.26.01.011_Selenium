@@ -14,4 +14,9 @@ public class Utilities {
         // Ví dụ kết quả: test582193
         return "test" + String.format("%03d", stamp) + rand;
 	}
+	
+	public static String getUsernameFromEmail(String email) {
+	    return email.split("@")[0];
+	}
+
 }

@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import Common.TestUtils;
-import Constant.Constant;
 import Constant.MenuTab;
 import DataObjects.User;
 
@@ -13,8 +12,7 @@ public class LogoutTest extends TestBase {
 	@Test
 	public void TC06() {
 		System.out.println("Prepare data");
-		User activateUser = TestUtils.createActivatedAccount();
-		User validUser = new User(activateUser.getUsername(), Constant.PASSWORD);
+		User activeUser = TestUtils.createActivatedAccount();
 
 		System.out.println("TC06 - User is redirected to Home page after logging out");
 
@@ -26,7 +24,7 @@ public class LogoutTest extends TestBase {
 		// Click login tab
 		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
 		// Enter valid information
-		homePage = loginPage.login(validUser, HomePage.class);
+		homePage = loginPage.login(activeUser, HomePage.class);
 
 		System.out.println("3. Click on \"FAQ\" tab");
 		FAQPage faqPage = homePage.gotoPage(MenuTab.FAQ, FAQPage.class);
