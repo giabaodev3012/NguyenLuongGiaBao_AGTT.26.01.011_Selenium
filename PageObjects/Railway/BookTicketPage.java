@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import Common.ProjectUtils;
 import Common.WaitUtils;
+import DataObjects.TicketInfo;
 
 public class BookTicketPage extends BasePage {
 
@@ -47,19 +48,28 @@ public class BookTicketPage extends BasePage {
 		Select select = new Select(getDdlDepartDate());
 		return select.getFirstSelectedOption().getText();
 	}
+	
+	public String getSelectedDepartFrom() {
+		Select select = new Select(getDdlDepartFrom());
+		return select.getFirstSelectedOption().getText();
+	}
+	
+	public String getSelectedArriveAt() {
+		Select select = new Select(getDdlArriveAt());
+		return select.getFirstSelectedOption().getText();
+	}
+	
 
-	public BookTicketSuccessPage bookTicket(String targetDate, String departFrom, String arriveAt, String seatType,
-			String amount) {
-
+	public BookTicketSuccessPage bookTicket(TicketInfo ticket) {
 		// 1. Select Depart Date
 		WaitUtils.waitForVisible(ddlDepartDate);
 		ProjectUtils.scrollDownByElement(getDdlDepartDate());
-		ProjectUtils.selectByVisibleText(ddlDepartDate, targetDate);
+		ProjectUtils.selectByVisibleText(ddlDepartDate, ticket.getDepartDate());
 
 		// 2. Select Depart From
 		WaitUtils.waitForVisible(ddlDepartFrom);
 		ProjectUtils.scrollDownByElement(getDdlDepartFrom());
-		ProjectUtils.selectByVisibleText(ddlDepartFrom, departFrom);
+		ProjectUtils.selectByVisibleText(ddlDepartFrom, ticket.getDepartFrom());
 
 		WebElement oldArriveAt = ProjectUtils.findElement(ddlArriveAt);
 		WaitUtils.waitUntilStale(oldArriveAt);
@@ -67,17 +77,17 @@ public class BookTicketPage extends BasePage {
 		// Select Arrive at
 		WaitUtils.waitForVisible(ddlArriveAt);
 		ProjectUtils.scrollDownByElement(getDdlArriveAt());
-		ProjectUtils.selectByVisibleText(ddlArriveAt, arriveAt);
+		ProjectUtils.selectByVisibleText(ddlArriveAt, ticket.getArriveAt());
 
 		// Select Seat type
 		WaitUtils.waitForVisible(ddlSeatType);
 		ProjectUtils.scrollDownByElement(getDdlSeatType());
-		ProjectUtils.selectByVisibleText(ddlSeatType, seatType);
+		ProjectUtils.selectByVisibleText(ddlSeatType, ticket.getSeatType());
 
 		// Select Ticket ammount
 		WaitUtils.waitForVisible(ddlTicketAmount);
 		ProjectUtils.scrollDownByElement(getDdlTicketAmount());
-		ProjectUtils.selectByVisibleText(ddlTicketAmount, amount);
+		ProjectUtils.selectByVisibleText(ddlTicketAmount, ticket.getTicketAmount());
 
 		// Click button
 		WaitUtils.waitForClickable(btnBookTicket);

@@ -16,6 +16,11 @@ public class HomePage extends BasePage {
 	public WebElement getLnkCreateAccount() {
 		return ProjectUtils.findElement(lnkCreateAccount);
 	}
+	
+	public WebElement getTxtWelcome() {
+		return ProjectUtils.findElement(txtWelcome);
+	}
+	
 
 	// Methods
 	public HomePage open() {
@@ -25,6 +30,7 @@ public class HomePage extends BasePage {
 
 	public boolean isHomePageDisplayed() {
 		WaitUtils.waitForVisible(txtWelcome);
+		ProjectUtils.scrollDownByElement(getTxtWelcome());
 		return ProjectUtils.isElementDisplayed(txtWelcome);
 	}
 

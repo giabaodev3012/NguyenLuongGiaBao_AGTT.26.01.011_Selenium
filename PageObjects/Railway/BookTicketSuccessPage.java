@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 
 import Common.ProjectUtils;
 import Common.WaitUtils;
+import Constant.BookTicketColumn;
 
 public class BookTicketSuccessPage extends BasePage {
 
@@ -25,10 +26,12 @@ public class BookTicketSuccessPage extends BasePage {
 		return getTxtSuccessMsg().getText();
 	}
 
-	public String getCellValueByHeader(String headerName) {
-		By cell = By.xpath(String.format(cellValueByHeader, headerName));
+	public String getCellValueByHeader(BookTicketColumn column) {
+		By cell = By.xpath(String.format(cellValueByHeader, column.getHeaderName() ));
 		WaitUtils.waitForVisible(cell);
-		return ProjectUtils.findElement(cell).getText();
+		WebElement element = ProjectUtils.findElement(cell);
+		ProjectUtils.scrollDownByElement(element);
+		return element.getText();
 	}
 
 }
