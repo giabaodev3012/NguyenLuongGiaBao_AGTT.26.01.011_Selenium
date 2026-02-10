@@ -3,6 +3,7 @@ package Common;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import Constant.Constant;
 
@@ -30,4 +31,12 @@ public class ProjectUtils {
 			Constant.WEBDRIVER.switchTo().window(windowHandle);
 		}
 	}
+	
+	public static void selectByVisibleText(By locator, String text) {
+	    WebElement element = findElement(locator);
+	    Select select = new Select(element);
+	    select.selectByVisibleText(text);
+	}
+
+
 }

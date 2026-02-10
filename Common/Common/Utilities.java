@@ -1,4 +1,6 @@
 package Common;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class Utilities {
@@ -17,6 +19,12 @@ public class Utilities {
 	
 	public static String getUsernameFromEmail(String email) {
 	    return email.split("@")[0];
+	}
+	
+	public static String plusDaysFromCurrentDepartDate(String date, int plusDays) {
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("M/d/yyyy");
+		LocalDate localDate = LocalDate.parse(date, fmt);
+		return localDate.plusDays(plusDays).format(fmt);
 	}
 
 }

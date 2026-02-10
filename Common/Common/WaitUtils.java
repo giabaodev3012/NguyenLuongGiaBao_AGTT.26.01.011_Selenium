@@ -3,6 +3,7 @@ package Common;
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -38,4 +39,13 @@ public class WaitUtils {
 	public static void waitForInvisible(By locator) {
 		waitForInvisible(locator, Constant.TIMEOUT);
 	}
+	
+	public static void waitUntilStale(WebElement element) {
+	    WebDriverWait wait = new WebDriverWait(
+	        Constant.WEBDRIVER,
+	        Duration.ofSeconds(Constant.TIMEOUT)
+	    );
+	    wait.until(ExpectedConditions.stalenessOf(element));
+	}
+
 }

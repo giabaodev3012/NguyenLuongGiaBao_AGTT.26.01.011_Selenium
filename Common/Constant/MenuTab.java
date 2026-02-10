@@ -1,10 +1,12 @@
 package Constant;
 
+
 public enum MenuTab {
 	LOGIN("Login"),
 	REGISTER("Register"),
 	FAQ("FAQ"),
-	LOGOUT("Log out");
+	LOGOUT("Log out"),
+	BOOKTICKET("Book ticket");
 
 	private final String text;
 
