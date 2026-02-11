@@ -13,11 +13,11 @@ public class HomePage extends BasePage {
 	private By lnkCreateAccount = By.xpath("//div[@id='content']//a[@href='/Account/Register.cshtml']");
 
 	// Elements
-	public WebElement getLnkCreateAccount() {
+	private WebElement getLnkCreateAccount() {
 		return ProjectUtils.findElement(lnkCreateAccount);
 	}
 	
-	public WebElement getTxtWelcome() {
+	private WebElement getTxtWelcome() {
 		return ProjectUtils.findElement(txtWelcome);
 	}
 	

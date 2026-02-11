@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 
 import Common.ProjectUtils;
 import Common.WaitUtils;
+import Constant.Station;
 
 public class TimeTablePage extends BasePage {
 	// Locator
@@ -23,8 +24,8 @@ public class TimeTablePage extends BasePage {
 	// Element
 
 	// Method
-	public TicketPricePage clickCheckPrice(String departFrom, String arriveAt) {
-		By locator = By.xpath(String.format(lnkCheckPriceByStations, departFrom, arriveAt));
+	public TicketPricePage clickCheckPrice(Station departFrom, Station arriveAt) {
+		By locator = By.xpath(String.format(lnkCheckPriceByStations, departFrom.getName(), arriveAt.getName()));
 		WaitUtils.waitForClickable(locator);
 		WebElement element = ProjectUtils.findElement(locator);
 		ProjectUtils.scrollDownByElement(element);
@@ -33,8 +34,8 @@ public class TimeTablePage extends BasePage {
 		return new TicketPricePage();
 	}
 	
-	public BookTicketPage clickBookTicket(String departFrom, String arriveAt) {
-		By locator = By.xpath(String.format(lnkBookTicketByStations, departFrom, arriveAt));
+	public BookTicketPage clickBookTicket(Station departFrom, Station arriveAt) {
+		By locator = By.xpath(String.format(lnkBookTicketByStations, departFrom.getName(), arriveAt.getName()));
 		WaitUtils.waitForClickable(locator);
 		WebElement element = ProjectUtils.findElement(locator);
 		ProjectUtils.scrollDownByElement(element);

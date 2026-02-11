@@ -22,43 +22,43 @@ public class RegisterPage extends BasePage {
 	private By txtCreateAccount = By.xpath("//h1");
 
 	// Element
-	public WebElement getTxtEmail() {
+	private WebElement getTxtEmail() {
 		return ProjectUtils.findElement(txtEmail);
 	}
 
-	public WebElement getTxtPassword() {
+	private WebElement getTxtPassword() {
 		return ProjectUtils.findElement(txtPassword);
 	}
 
-	public WebElement getTxtConfirmPassword() {
+	private WebElement getTxtConfirmPassword() {
 		return ProjectUtils.findElement(txtConfirmPassword);
 	}
 
-	public WebElement getTxtPid() {
+	private WebElement getTxtPid() {
 		return ProjectUtils.findElement(txtPid);
 	}
 
-	public WebElement getLblRegisterErrorMsg() {
+	private WebElement getLblRegisterErrorMsg() {
 		return ProjectUtils.findElement(lblRegisterErrorMsg);
 	}
 
-	public WebElement getLblPwdErrorMsg() {
+	private WebElement getLblPwdErrorMsg() {
 		return ProjectUtils.findElement(lblPwdErrorMsg);
 	}
 
-	public WebElement getLblPidErrorMsg() {
+	private WebElement getLblPidErrorMsg() {
 		return ProjectUtils.findElement(lblPidErrorMsg);
 	}
 
-	public WebElement getBtnRegister() {
+	private WebElement getBtnRegister() {
 		return ProjectUtils.findElement(btnRegister);
 	}
 
-	public WebElement getLblRegisterSuccessMsg() {
+	private WebElement getLblRegisterSuccessMsg() {
 		return ProjectUtils.findElement(lblRegisterSuccessMsg);
 	}
 
-	public WebElement getLblThankyouMsg() {
+	private WebElement getLblThankyouMsg() {
 		return ProjectUtils.findElement(lblThankyouMsg);
 	}
 

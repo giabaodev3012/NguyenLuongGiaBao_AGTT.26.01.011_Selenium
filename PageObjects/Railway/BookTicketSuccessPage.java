@@ -16,7 +16,7 @@ public class BookTicketSuccessPage extends BasePage {
 			+ "count(//tr[@class='TableSmallHeader']/th[normalize-space()='%s']/preceding-sibling::th) + 1" + "]";
 
 	// Element
-	public WebElement getTxtSuccessMsg() {
+	private WebElement getTxtSuccessMsg() {
 		return ProjectUtils.findElement(txtSuccessMsg);
 	}
 

@@ -13,11 +13,11 @@ public class ForgotPasswordPage extends BasePage{
 	private By btnSendInstructions = By.xpath("//input[@value='Send Instructions']");
 	
 	// Element
-	public WebElement getTxtEmail() {
+	private WebElement getTxtEmail() {
 		return ProjectUtils.findElement(txtEmail);
 	}
 	
-	public WebElement getBtnSendInstructions() {
+	private WebElement getBtnSendInstructions() {
 		return ProjectUtils.findElement(btnSendInstructions);
 	}
 	

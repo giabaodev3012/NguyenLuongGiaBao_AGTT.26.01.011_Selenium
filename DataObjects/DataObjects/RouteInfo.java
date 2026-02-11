@@ -1,20 +1,39 @@
 package DataObjects;
 
+import Constant.Station;
+
 public class RouteInfo {
-	private String departFrom;
-	private String arriveAt;
+
+	private Station departFrom;
+	private Station arriveAt;
 	private String departTime;
 	private String arriveTime;
 
-	public RouteInfo(String departFrom, String arriveAt, String departTime, String arriveTime) {
+	public RouteInfo(Station departFrom, Station arriveAt, String departTime, String arriveTime) {
 		this.departFrom = departFrom;
 		this.arriveAt = arriveAt;
 		this.departTime = departTime;
 		this.arriveTime = arriveTime;
 	}
 
-	public RouteInfo(String departFrom, String arriveAt) {
+	public RouteInfo(Station departFrom, Station arriveAt) {
 		this.departFrom = departFrom;
+		this.arriveAt = arriveAt;
+	}
+
+	public Station getDepartFrom() {
+		return departFrom;
+	}
+
+	public void setDepartFrom(Station departFrom) {
+		this.departFrom = departFrom;
+	}
+
+	public Station getArriveAt() {
+		return arriveAt;
+	}
+
+	public void setArriveAt(Station arriveAt) {
 		this.arriveAt = arriveAt;
 	}
 
@@ -33,21 +52,4 @@ public class RouteInfo {
 	public void setArriveTime(String arriveTime) {
 		this.arriveTime = arriveTime;
 	}
-
-	public String getDepartFrom() {
-		return departFrom;
-	}
-
-	public void setDepartFrom(String departFrom) {
-		this.departFrom = departFrom;
-	}
-
-	public String getArriveAt() {
-		return arriveAt;
-	}
-
-	public void setArriveAt(String arriveAt) {
-		this.arriveAt = arriveAt;
-	}
-
 }

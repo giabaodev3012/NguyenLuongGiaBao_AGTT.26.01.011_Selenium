@@ -17,11 +17,11 @@ public class TicketPricePage extends BasePage {
 			+ "]";
 
 	// Element
-	public WebElement getLblTitle() {
+	private WebElement getLblTitle() {
 		return ProjectUtils.findElement(lblTitle);
 	}
 
-	public WebElement getLblTicketPriceHeader() {
+	private WebElement getLblTicketPriceHeader() {
 		return ProjectUtils.findElement(lblTicketPriceHeader);
 	}
 

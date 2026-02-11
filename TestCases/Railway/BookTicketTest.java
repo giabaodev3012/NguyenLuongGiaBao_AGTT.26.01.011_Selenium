@@ -8,6 +8,7 @@ import Common.Utilities;
 import Constant.BookTicketColumn;
 import Constant.MenuTab;
 import Constant.SeatType;
+import Constant.Station;
 import DataObjects.RouteInfo;
 import DataObjects.TicketInfo;
 import DataObjects.TicketPrice;
@@ -19,6 +20,7 @@ public class BookTicketTest extends TestBase {
 	public void TC12() {
 		System.out.println("Prepare data");
 		String expectedMsg = "Ticket booked successfully!";
+		int plusDay = 2;
 
 		System.out.println("TC12 - User can book 1 ticket at a time");
 
@@ -42,10 +44,9 @@ public class BookTicketTest extends TestBase {
 		System.out.println("7. Select \"1\" for \"Ticket amount\"");
 		System.out.println("8. Click on \"Book ticket\" button");
 		String currentDepartDate = bookTicketPage.getSelectedDepartDate();
-		String targetDate = Utilities.plusDaysFromCurrentDepartDate(currentDepartDate, 2);
+		String targetDate = Utilities.plusDaysFromCurrentDepartDate(currentDepartDate, plusDay);
 
-		TicketInfo ticket = new TicketInfo(targetDate, "Nha Trang", "Huế", "Soft bed with air conditioner", "1");
-
+		TicketInfo ticket = new TicketInfo(targetDate, Station.NHATRANG, Station.HUE, SeatType.SBC, "1");
 		BookTicketSuccessPage successPage = bookTicketPage.bookTicket(ticket);
 
 		System.out.println("VP: Message \"Ticket booked successfully!\" displays.");
@@ -74,6 +75,7 @@ public class BookTicketTest extends TestBase {
 	public void TC13() {
 		System.out.println("Prepare data");
 		String expectedMsg = "Ticket booked successfully!";
+		int plusDay = 25;
 
 		System.out.println("TC13 - User can book many tickets at a time");
 
@@ -97,9 +99,9 @@ public class BookTicketTest extends TestBase {
 		System.out.println("7. Select \"5\" for \"Ticket amount\"");
 		System.out.println("8. Click on \"Book ticket\" button");
 		String currentDepartDate = bookTicketPage.getSelectedDepartDate();
-		String targetDate = Utilities.plusDaysFromCurrentDepartDate(currentDepartDate, 25);
+		String targetDate = Utilities.plusDaysFromCurrentDepartDate(currentDepartDate, plusDay);
 
-		TicketInfo ticket = new TicketInfo(targetDate, "Nha Trang", "Sài Gòn", "Soft seat with air conditioner", "5");
+		TicketInfo ticket = new TicketInfo(targetDate, Station.NHATRANG, Station.SAIGON, SeatType.SSC, "5");
 
 		BookTicketSuccessPage successPage = bookTicketPage.bookTicket(ticket);
 
@@ -128,7 +130,7 @@ public class BookTicketTest extends TestBase {
 	@Test
 	public void TC14() {
 		System.out.println("Prepare data");
-		TicketInfo ticket = new TicketInfo("Đà Nẵng", "Sài Gòn");
+		TicketInfo ticket = new TicketInfo(Station.DANANG, Station.SAIGON);
 		String expectedTableHeader = "Ticket price from " + ticket.getDepartFrom() + " to " + ticket.getArriveAt();
 
 		TicketPrice expectedPriceHS = new TicketPrice(SeatType.HS, "310000");
@@ -189,11 +191,12 @@ public class BookTicketTest extends TestBase {
 	@Test
 	public void TC15() {
 		System.out.println("Prepare data");
-		RouteInfo route = new RouteInfo("Quảng Ngãi", "Huế");
+		RouteInfo route = new RouteInfo(Station.QUANGNGAI, Station.HUE);
 		String expectedMsg = "Ticket booked successfully!";
+		int plusDay = 1;
 		
 		String today = Utilities.getToday();
-		String targetDate = Utilities.plusDaysFromCurrentDepartDate(today, 1);
+		String targetDate = Utilities.plusDaysFromCurrentDepartDate(today, plusDay);
 		
 		System.out.println("TC15 - User can book ticket from Timetable");
 		
@@ -224,7 +227,7 @@ public class BookTicketTest extends TestBase {
 		System.out.println("5. Select Depart date = tomorrow");
 		System.out.println("6. Select Ticket amount = 5");
 		System.out.println("7. Click on \"Book ticket\" button");
-		TicketInfo ticket = new TicketInfo(targetDate, route.getDepartFrom(), route.getArriveAt(), "Soft seat with air conditioner", "5");
+		TicketInfo ticket = new TicketInfo(targetDate, route.getDepartFrom(), route.getArriveAt(), SeatType.SSC, "5");
 		BookTicketSuccessPage successPage = bookTicketPage.bookTicket(ticket);
 		
 		System.out.println("VP: Message \"Ticket booked successfully!\" displays");

@@ -16,23 +16,23 @@ public class LoginPage extends BasePage {
 	private By lnkForgotPwd = By.xpath("//a[contains(text(), \"Forgot Password\")]");
 	
 	// Elements
-	public WebElement getTxtUsername() {
+	private WebElement getTxtUsername() {
 		return ProjectUtils.findElement(txtUsername);
 	}
 
-	public WebElement getBtnLogin() {
+	private WebElement getBtnLogin() {
 		return ProjectUtils.findElement(btnLogin);
 	}
 
-	public WebElement getTxtPassword() {
+	private WebElement getTxtPassword() {
 		return ProjectUtils.findElement(txtPassword);
 	}
 
-	public WebElement getLblLoginErrorMsg() {
+	private WebElement getLblLoginErrorMsg() {
 		return ProjectUtils.findElement(lblLoginErrorMsg);
 	}
 	
-	public WebElement getLnkForgotPwd() {
+	private WebElement getLnkForgotPwd() {
 		return ProjectUtils.findElement(lnkForgotPwd);
 	}
 

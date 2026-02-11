@@ -17,27 +17,27 @@ public class PasswordResetPage extends BasePage {
 	private By lblPwdErrorMsg = By.xpath("//label[@class='validation-error']");
 			
 	// Element
-	public WebElement getTxtNewPassword() {
+	private WebElement getTxtNewPassword() {
 		return ProjectUtils.findElement(txtNewPassword);
 	}
 
-	public WebElement getTxtConfirmPassword() {
+	private WebElement getTxtConfirmPassword() {
 		return ProjectUtils.findElement(txtConfirmPassword);
 	}
 
-	public WebElement getBtnResetPassword() {
+	private WebElement getBtnResetPassword() {
 		return ProjectUtils.findElement(btnResetPassword);
 	}
 
-	public WebElement getLblErrorMsg() {
+	private WebElement getLblErrorMsg() {
 		return ProjectUtils.findElement(lblErrorMsg);
 	}
 	
-	public WebElement getLblPwdErrorMsg() {
+	private WebElement getLblPwdErrorMsg() {
 		return ProjectUtils.findElement(lblPwdErrorMsg);
 	}
 
-	public WebElement getTxtResetToken() {
+	protected WebElement getTxtResetToken() {
 		return ProjectUtils.findElement(txtResetToken);
 	}
 

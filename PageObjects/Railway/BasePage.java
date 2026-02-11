@@ -13,12 +13,12 @@ public abstract class BasePage {
 	private final By lblWelcomeMessage = By.xpath("//div[@class='account']/strong");
 
 	// Elements
-	protected WebElement getLblWelcomeMessage() {
+	private WebElement getLblWelcomeMessage() {
 		return ProjectUtils.findElement(lblWelcomeMessage);
 	}
 
 	// Methods
-	protected By getMenuLocator(String menuText) {
+	private By getMenuLocator(String menuText) {
 		return By.xpath(String.format(menuXpath, menuText));
 	}
 

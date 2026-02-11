@@ -19,27 +19,27 @@ public class BookTicketPage extends BasePage {
 	private By btnBookTicket = By.xpath("//input[@value='Book ticket']");
 
 	// Element
-	public WebElement getDdlDepartDate() {
+	private WebElement getDdlDepartDate() {
 		return ProjectUtils.findElement(ddlDepartDate);
 	}
 
-	public WebElement getDdlDepartFrom() {
+	private WebElement getDdlDepartFrom() {
 		return ProjectUtils.findElement(ddlDepartFrom);
 	}
 
-	public WebElement getDdlArriveAt() {
+	private WebElement getDdlArriveAt() {
 		return ProjectUtils.findElement(ddlArriveAt);
 	}
 
-	public WebElement getDdlSeatType() {
+	private WebElement getDdlSeatType() {
 		return ProjectUtils.findElement(ddlSeatType);
 	}
 
-	public WebElement getDdlTicketAmount() {
+	private WebElement getDdlTicketAmount() {
 		return ProjectUtils.findElement(ddlTicketAmount);
 	}
 
-	public WebElement getBtnBookTicket() {
+	private WebElement getBtnBookTicket() {
 		return ProjectUtils.findElement(btnBookTicket);
 	}
 
@@ -69,7 +69,7 @@ public class BookTicketPage extends BasePage {
 		// 2. Select Depart From
 		WaitUtils.waitForVisible(ddlDepartFrom);
 		ProjectUtils.scrollDownByElement(getDdlDepartFrom());
-		ProjectUtils.selectByVisibleText(ddlDepartFrom, ticket.getDepartFrom());
+		ProjectUtils.selectByVisibleText(ddlDepartFrom, ticket.getDepartFrom().getName());
 
 		WebElement oldArriveAt = ProjectUtils.findElement(ddlArriveAt);
 		WaitUtils.waitUntilStale(oldArriveAt);
@@ -77,12 +77,12 @@ public class BookTicketPage extends BasePage {
 		// Select Arrive at
 		WaitUtils.waitForVisible(ddlArriveAt);
 		ProjectUtils.scrollDownByElement(getDdlArriveAt());
-		ProjectUtils.selectByVisibleText(ddlArriveAt, ticket.getArriveAt());
+		ProjectUtils.selectByVisibleText(ddlArriveAt, ticket.getArriveAt().getName());
 
 		// Select Seat type
 		WaitUtils.waitForVisible(ddlSeatType);
 		ProjectUtils.scrollDownByElement(getDdlSeatType());
-		ProjectUtils.selectByVisibleText(ddlSeatType, ticket.getSeatType());
+		ProjectUtils.selectByVisibleText(ddlSeatType, ticket.getSeatType().getDescription());
 
 		// Select Ticket ammount
 		WaitUtils.waitForVisible(ddlTicketAmount);
