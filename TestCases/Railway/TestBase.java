@@ -1,24 +1,38 @@
 package Railway;
 
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 
 import Constant.Constant;
 
 public abstract class TestBase {
-	@BeforeMethod
-	public void beforeMethod() {
-		System.out.println("Pre-condition");
 
-		Constant.WEBDRIVER = new ChromeDriver();
-		Constant.WEBDRIVER.manage().window().maximize();
-	}
+    @Parameters("browser")
+    @BeforeMethod
+    public void beforeMethod(@Optional("chrome") String browser) {
 
-	@AfterMethod
-	public void afterMethod() {
-		System.out.println("Post-condition");
+        System.out.println("Pre-condition - Browser: " + browser);
 
-		Constant.WEBDRIVER.quit();
-	}
+        if ("chrome".equalsIgnoreCase(browser)) {
+            Constant.WEBDRIVER = new ChromeDriver();
+        } 
+        else if ("firefox".equalsIgnoreCase(browser)) {
+            Constant.WEBDRIVER = new FirefoxDriver();
+        } 
+        else {
+            throw new RuntimeException("Unsupported browser: " + browser);
+        }
+
+        Constant.WEBDRIVER.manage().window().maximize();
+    }
+
+    @AfterMethod
+    public void afterMethod() {
+        System.out.println("Post-condition");
+        Constant.WEBDRIVER.quit();
+    }
 }
