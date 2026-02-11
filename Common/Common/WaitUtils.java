@@ -47,5 +47,11 @@ public class WaitUtils {
 	    );
 	    wait.until(ExpectedConditions.stalenessOf(element));
 	}
+	
+	public static void waitForAlert() {
+	    WebDriverWait wait = new WebDriverWait(Constant.WEBDRIVER, Duration.ofSeconds(Constant.TIMEOUT));
+	    wait.until(ExpectedConditions.alertIsPresent());
+	}
+
 
 }

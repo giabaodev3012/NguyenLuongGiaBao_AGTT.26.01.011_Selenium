@@ -4,34 +4,33 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import Common.TestUtils;
-import Common.Utilities;
 import Constant.Constant;
 import Constant.MenuTab;
 import DataObjects.User;
-import GuerrillaMail.GuerrillaMailPage;
 
 public class LoginTest extends TestBase {
 
 	@Test
 	public void TC01() {
-		System.out.println("Prepare data");
-		User validUser = TestUtils.createActivatedAccount();
-		String expectedMsg = "Welcome " + validUser.getUsername();
-
 		System.out.println("TC01 - User can log into Railway with valid username and password");
 
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
 
+		System.out.println("Pre-condition: Create Activate Account");
+		User validUser = TestUtils.createActivatedAccount();
+
 		System.out.println("2. Click on \"Login\" tab");
 		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
 
 		System.out.println("3. Enter valid Email and Password");
 		System.out.println("4. Click on \"Login\" button");
+
 		homePage = loginPage.login(validUser, HomePage.class);
 
 		System.out.println("VP: User is logged into Railway. Welcome user message is displayed. ");
+		String expectedMsg = "Welcome " + validUser.getUsername();
 		String actualMsg = homePage.getWelcomeMessage();
 		Assert.assertEquals(actualMsg, expectedMsg, "Welcome message is not displayed as expected");
 	}
@@ -65,8 +64,6 @@ public class LoginTest extends TestBase {
 	@Test
 	public void TC03() {
 		System.out.println("Prepare data");
-		User activeUser = TestUtils.createActivatedAccount();
-		User invalidUser = new User(activeUser.getUsername(), "invalidPassword");
 		String expectedErrorMsg = "There was a problem with your login and/or errors exist in your form.";
 
 		System.out.println("TC03 - User cannot log into Railway with invalid password");
@@ -75,11 +72,15 @@ public class LoginTest extends TestBase {
 		HomePage homePage = new HomePage();
 		homePage.open();
 
+		System.out.println("Pre-condition: Create Activate Account");
+		User activeUser = TestUtils.createActivatedAccount();
+
 		System.out.println("2. Click on \"Login\" tab");
 		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
 
 		System.out.println("3. Enter valid Email and invalid Password");
 		System.out.println("4. Click \"Login\" button");
+		User invalidUser = new User(activeUser.getUsername(), "invalidPassword");
 		loginPage = loginPage.login(invalidUser, LoginPage.class);
 
 		System.out.println(
@@ -91,9 +92,6 @@ public class LoginTest extends TestBase {
 	@Test
 	public void TC04() {
 		System.out.println("Prepare data");
-		User activeUser = TestUtils.createActivatedAccount();
-		User invalidUser = new User(activeUser.getUsername(), "invalid");
-		
 		String expectedErrorMsg = "Invalid username or password. Please try again.";
 		String expected4thErrorMsg = "You have used 4 out of 5 login attempts. After all 5 have been used, you will be unable to login for 15 minutes.";
 
@@ -102,6 +100,10 @@ public class LoginTest extends TestBase {
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
+
+		System.out.println("Pre-condition: Create Activate Account");
+		User activeUser = TestUtils.createActivatedAccount();
+		User invalidUser = new User(activeUser.getUsername(), "invalid");
 
 		System.out.println("2. Click on \"Login\" tab");
 		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
@@ -128,14 +130,6 @@ public class LoginTest extends TestBase {
 	public void TC05() {
 		System.out.println("Prepare data");
 		String expectedErrorMsg = "Invalid username or password. Please try again.";
-		// Generate email by GuerrillaMail
-		GuerrillaMailPage mailPage = new GuerrillaMailPage();
-		mailPage.open();
-
-		String username = Utilities.generateRandomUsername(); // tạo user random
-		String email = mailPage.createEmailAndGetIt(username);
-
-		User notActivateUser = new User(email, Constant.PASSWORD, Constant.CONFIRMPASSWORD, "12345678");
 
 		System.out.println("TC05 - User can't login with an account hasn't been activated");
 
@@ -144,6 +138,8 @@ public class LoginTest extends TestBase {
 		homePage.open();
 
 		System.out.println("Pre-condition: a not-active account is existing");
+		String email = TestUtils.getQuickEmail();
+		User notActivateUser = new User(email, Constant.PASSWORD, Constant.CONFIRMPASSWORD, "12345678");
 		// Click on "Register" tab
 		RegisterPage registerPage = homePage.gotoPage(MenuTab.REGISTER, RegisterPage.class);
 		// Create new account

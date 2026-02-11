@@ -7,7 +7,9 @@ public enum MenuTab {
 	FAQ("FAQ"),
 	LOGOUT("Log out"),
 	BOOKTICKET("Book ticket"),
-	TIMETABLE("Timetable");
+	TIMETABLE("Timetable"),
+	MYTICKET("My ticket");
+	
 
 	private final String text;
 

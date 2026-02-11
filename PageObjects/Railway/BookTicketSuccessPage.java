@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 import Common.ProjectUtils;
 import Common.WaitUtils;
 import Constant.BookTicketColumn;
+import Constant.Constant;
 
 public class BookTicketSuccessPage extends BasePage {
 
@@ -33,5 +34,11 @@ public class BookTicketSuccessPage extends BasePage {
 		ProjectUtils.scrollDownByElement(element);
 		return element.getText();
 	}
+	
+	public String getTicketIdFromUrl() {
+	    String url = Constant.WEBDRIVER.getCurrentUrl(); // ...SuccessPage.cshtml?id=22289
+	    return url.replaceAll(".*id=(\\d+).*", "$1");
+	}
+
 
 }

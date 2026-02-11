@@ -18,8 +18,6 @@ public class BookTicketTest extends TestBase {
 	@Test
 	public void TC12() {
 		System.out.println("Prepare data");
-		User activeUser = TestUtils.createActivatedAccount();
-
 		String expectedMsg = "Ticket booked successfully!";
 
 		System.out.println("TC12 - User can book 1 ticket at a time");
@@ -27,6 +25,9 @@ public class BookTicketTest extends TestBase {
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
+		
+		System.out.println("Pre-condition: Create Activate Account");
+		User activeUser = TestUtils.createActivatedAccount();
 
 		System.out.println("2. Login with a valid account ");
 		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
@@ -72,7 +73,6 @@ public class BookTicketTest extends TestBase {
 	@Test
 	public void TC13() {
 		System.out.println("Prepare data");
-		User activeUser = TestUtils.createActivatedAccount();
 		String expectedMsg = "Ticket booked successfully!";
 
 		System.out.println("TC13 - User can book many tickets at a time");
@@ -80,6 +80,9 @@ public class BookTicketTest extends TestBase {
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
+		
+		System.out.println("Pre-condition: Create Activate Account");
+		User activeUser = TestUtils.createActivatedAccount();
 
 		System.out.println("2. Login with a valid account ");
 		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
@@ -125,7 +128,6 @@ public class BookTicketTest extends TestBase {
 	@Test
 	public void TC14() {
 		System.out.println("Prepare data");
-		User activeUser = TestUtils.createActivatedAccount();
 		TicketInfo ticket = new TicketInfo("Đà Nẵng", "Sài Gòn");
 		String expectedTableHeader = "Ticket price from " + ticket.getDepartFrom() + " to " + ticket.getArriveAt();
 
@@ -141,6 +143,9 @@ public class BookTicketTest extends TestBase {
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
+		
+		System.out.println("Pre-condition: Create Activate Account");
+		User activeUser = TestUtils.createActivatedAccount();
 
 		System.out.println("2. Login with a valid account");
 		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
@@ -184,7 +189,6 @@ public class BookTicketTest extends TestBase {
 	@Test
 	public void TC15() {
 		System.out.println("Prepare data");
-		User activeUser = TestUtils.createActivatedAccount();
 		RouteInfo route = new RouteInfo("Quảng Ngãi", "Huế");
 		String expectedMsg = "Ticket booked successfully!";
 		
@@ -196,6 +200,9 @@ public class BookTicketTest extends TestBase {
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
+		
+		System.out.println("Pre-condition: Create Activate Account");
+		User activeUser = TestUtils.createActivatedAccount();
 		
 		System.out.println("2. Login with a valid account");
 		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);

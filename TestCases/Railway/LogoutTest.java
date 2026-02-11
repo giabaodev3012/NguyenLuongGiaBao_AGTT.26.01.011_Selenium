@@ -11,14 +11,14 @@ public class LogoutTest extends TestBase {
 
 	@Test
 	public void TC06() {
-		System.out.println("Prepare data");
-		User activeUser = TestUtils.createActivatedAccount();
-
 		System.out.println("TC06 - User is redirected to Home page after logging out");
 
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
+		
+		System.out.println("Pre-condition: Create Activate Account");
+		User activeUser = TestUtils.createActivatedAccount();
 
 		System.out.println("2. Login with valid Email and Password");
 		// Click login tab

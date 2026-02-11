@@ -1,5 +1,6 @@
 package Railway;
 
+import org.openqa.selenium.WindowType;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -16,7 +17,6 @@ public class CreateAccountTest extends TestBase {
 	@Test
 	public void TC07() {
 		System.out.println("Prepare data");
-		User activeUser = TestUtils.createActivatedAccount();
 		String expectedErrorMsg = "This email address is already in use.";
 
 		System.out.println("TC07 - User can't create account with an already in-use email");
@@ -24,6 +24,9 @@ public class CreateAccountTest extends TestBase {
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
+		
+		System.out.println("Pre-condition: Create Activate Account");
+		User activeUser = TestUtils.createActivatedAccount();
 
 		System.out.println("2. Click on \"Register\" tab");
 		RegisterPage registerPage = homePage.gotoPage(MenuTab.REGISTER, RegisterPage.class);
@@ -39,9 +42,7 @@ public class CreateAccountTest extends TestBase {
 
 	@Test
 	public void TC08() {
-		System.out.println("Prepare data");
-		User activeUser = TestUtils.createActivatedAccount();
-		User invalidUser = new User(activeUser.getUsername(), "", "", "");
+		System.out.println("Prepare data");	
 		String expectedErrorMsg = "There're errors in the form. Please correct the errors and try again.";
 		String expectedPwdErrorMsg = "Invalid password length";
 		String expectedPidErrorMsg = "Invalid ID length";
@@ -51,7 +52,11 @@ public class CreateAccountTest extends TestBase {
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
-
+		
+		System.out.println("Pre-condition: Get valid email");
+		String email = TestUtils.getQuickEmail();
+	    User invalidUser = new User(email, "", "", "");
+		
 		System.out.println("2. Click on \"Register\" tab");
 		RegisterPage registerPage = homePage.gotoPage(MenuTab.REGISTER, RegisterPage.class);
 
@@ -76,15 +81,6 @@ public class CreateAccountTest extends TestBase {
 	@Test
 	public void TC09() {
 		System.out.println("Prepare data");
-		// Generate email by GuerrillaMail
-		GuerrillaMailPage mailPage = new GuerrillaMailPage();
-		mailPage.open();
-
-		String username = Utilities.generateRandomUsername(); // tạo user random
-		String email = mailPage.createEmailAndGetIt(username);
-
-		User newUser = new User(email, Constant.PASSWORD, Constant.CONFIRMPASSWORD, "12345678");
-
 		String expectedMsg = "Registration Confirmed! You can now log in to the site.";
 		String expectedThankyouMsg = "Thank you for registering your account";
 
@@ -93,6 +89,7 @@ public class CreateAccountTest extends TestBase {
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
+		String railwayWindow = Constant.WEBDRIVER.getWindowHandle();
 
 		System.out.println(
 				"VP: Home page is shown with guide containing href \"create an account\" to \"Register\" page");
@@ -103,7 +100,20 @@ public class CreateAccountTest extends TestBase {
 		Assert.assertTrue(homePage.getCreateAccountHref().contains("Register"),
 				"Create an account link does not navigate to Register page");
 
+		System.out.println("Pre-condtion: Get user");
+		// Mở GuerrillaMail ở tab mới
+		Constant.WEBDRIVER.switchTo().newWindow(WindowType.TAB);
+	    String mailWindow = Constant.WEBDRIVER.getWindowHandle();
+	 // Generate email by GuerrillaMail
+	    GuerrillaMailPage mailPage = new GuerrillaMailPage();
+	    mailPage.open();
+
+	    String username = Utilities.generateRandomUsername();
+	    String email = mailPage.createEmailAndGetIt(username);
+	    User newUser = new User(email, Constant.PASSWORD, Constant.CONFIRMPASSWORD, "12345678");
+		
 		System.out.println("2. Click on \"Create an account\"");
+		Constant.WEBDRIVER.switchTo().window(railwayWindow);
 		RegisterPage registerPage = homePage.clickCreateAnAccount();
 
 		System.out.println("VP: Register page is shown");
@@ -119,16 +129,27 @@ public class CreateAccountTest extends TestBase {
 
 		System.out.println(
 				"5. Get email information (webmail address, mailbox and password) and navigate to that webmail");
-		mailPage.open();
-
 		System.out.println("6. Login to the mailbox");
-		mailPage.setMailboxUsername(username);
+		
 
 		System.out.println(
 				"7. Open email with subject containing \"Please confirm your account\"  and the email of the new account at step 3");
 		System.out.println("8. Click on the activate link");
+		Constant.WEBDRIVER.switchTo().window(mailWindow);
 		mailPage.openConfirmEmail();
 		ProjectUtils.switchToLastWindow();
+		String activationWindow = Constant.WEBDRIVER.getWindowHandle();
+
+		// Đóng các tab không cần thiết
+		// Đóng tab Mail
+		Constant.WEBDRIVER.switchTo().window(mailWindow);
+		Constant.WEBDRIVER.close();
+
+		// Đóng tab Đăng ký
+		Constant.WEBDRIVER.switchTo().window(railwayWindow);
+		Constant.WEBDRIVER.close();
+		
+		Constant.WEBDRIVER.switchTo().window(activationWindow);
 
 		System.out.println(
 				"VP: Redirect to Railways page and message \"Registration Confirmed! You can now log in to the site.\" is shown");
