@@ -68,7 +68,7 @@ public class GuerrillaMailPage extends BasePage {
 	public GuerrillaMailPage setMailboxUsername(String username) {
 		WaitUtils.waitForClickable(lblEmailHeader);
 		ProjectUtils.scrollDownByElement(getLblEmailHeader());
-		getLblEmailHeader().click();
+		ProjectUtils.clickByJS(getLblEmailHeader());
 
 		WaitUtils.waitForVisible(txtEmailHeader);
 		ProjectUtils.scrollDownByElement(getLblEmailHeader());
@@ -77,7 +77,7 @@ public class GuerrillaMailPage extends BasePage {
 
 		WaitUtils.waitForClickable(btnSet);
 		ProjectUtils.scrollDownByElement(getBtnSet());
-		getBtnSet().click();
+		ProjectUtils.clickByJS(getBtnSet());
 
 		return this;
 	}
@@ -87,7 +87,7 @@ public class GuerrillaMailPage extends BasePage {
 		ProjectUtils.scrollDownByElement(getChkScramble());
 
 		if (getChkScramble().isSelected()) {
-			getChkScramble().click();
+			ProjectUtils.clickByJS(getChkScramble());
 		}
 
 		return this;
@@ -108,11 +108,11 @@ public class GuerrillaMailPage extends BasePage {
 	public GuerrillaMailPage openConfirmEmail() {
 		WaitUtils.waitForVisible(lblConfirmAccountMsg, 30);
 		ProjectUtils.scrollDownByElement(getLblConfirmAccountMsg());
-		getLblConfirmAccountMsg().click();
+		ProjectUtils.clickByJS(getLblConfirmAccountMsg());
 
 		WaitUtils.waitForVisible(lnkActivate);
 		ProjectUtils.scrollDownByElement(getLnkActivate());
-		getLnkActivate().click();
+		ProjectUtils.clickByJS(getLnkActivate());
 
 		return this;
 	}
@@ -120,12 +120,11 @@ public class GuerrillaMailPage extends BasePage {
 	public GuerrillaMailPage openResetPwdEmail() {
 		WaitUtils.waitForVisible(lblResetPwdMsg, 30);
 		ProjectUtils.scrollDownByElement(getLblResetPwdMsg());
-		getLblResetPwdMsg().click();
+		ProjectUtils.clickByJS(getLblResetPwdMsg());
 
 		WaitUtils.waitForVisible(lnkResetPwd);
 		ProjectUtils.scrollDownByElement(getLnkResetPwd());
-		getLnkResetPwd().click();
-
+		ProjectUtils.clickByJS(getLnkResetPwd());
 		return this;
 	}
 

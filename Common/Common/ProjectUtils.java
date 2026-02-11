@@ -37,6 +37,11 @@ public class ProjectUtils {
 	    Select select = new Select(element);
 	    select.selectByVisibleText(text);
 	}
+	
+	public static void clickByJS(WebElement element) {
+	    JavascriptExecutor js = (JavascriptExecutor) Constant.WEBDRIVER;
+	    js.executeScript("arguments[0].click();", element);
+	}
 
 
 }

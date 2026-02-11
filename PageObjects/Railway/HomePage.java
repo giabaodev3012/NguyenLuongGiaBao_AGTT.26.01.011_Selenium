@@ -37,7 +37,7 @@ public class HomePage extends BasePage {
 	public RegisterPage clickCreateAnAccount() {
 		WaitUtils.waitForClickable(lnkCreateAccount);
 		ProjectUtils.scrollDownByElement(getLnkCreateAccount());
-		getLnkCreateAccount().click();
+		ProjectUtils.clickByJS(getLnkCreateAccount());
 
 		return new RegisterPage();
 	}
