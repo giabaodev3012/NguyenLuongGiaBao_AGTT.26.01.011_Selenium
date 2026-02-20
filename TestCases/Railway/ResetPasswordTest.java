@@ -25,7 +25,7 @@ public class ResetPasswordTest extends TestBase {
 		HomePage homePage = new HomePage();
 		homePage.open();
 
-		// Pre-condition: Create Activate Account");
+		// Pre-condition: Create Activate Account
 		User activeUser = TestUtils.createActivatedAccount();
 		String emailUsername = Utilities.getUsernameFromEmail(activeUser.getUsername());
 
@@ -76,7 +76,7 @@ public class ResetPasswordTest extends TestBase {
 		HomePage homePage = new HomePage();
 		homePage.open();
 
-		// Pre-condition: Create Activate Account");
+		// Pre-condition: Create Activate Account
 		User activeUser = TestUtils.createActivatedAccount();
 		String emailUsername = Utilities.getUsernameFromEmail(activeUser.getUsername());
 		

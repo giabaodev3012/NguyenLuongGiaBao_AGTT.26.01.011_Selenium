@@ -28,17 +28,15 @@ public class BookTicketSuccessPage extends BasePage {
 	}
 
 	public String getCellValueByHeader(BookTicketColumn column) {
-		By cell = By.xpath(String.format(cellValueByHeader, column.getHeaderName() ));
+		By cell = By.xpath(String.format(cellValueByHeader, column.getHeaderName()));
 		WaitUtils.waitForVisible(cell);
 		WebElement element = ProjectUtils.findElement(cell);
 		ProjectUtils.scrollDownByElement(element);
 		return element.getText();
 	}
-	
+
 	public String getTicketIdFromUrl() {
-	    String url = Constant.WEBDRIVER.getCurrentUrl(); // ...SuccessPage.cshtml?id=22289
-	    return url.replaceAll(".*id=(\\d+).*", "$1");
+		String url = Constant.WEBDRIVER.getCurrentUrl(); // ...SuccessPage.cshtml?id=22289
+		return url.replaceAll(Constant.ID_FROM_URL_REGEX, "$1");
 	}
-
-
 }

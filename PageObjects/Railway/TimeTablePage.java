@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 
 import Common.ProjectUtils;
 import Common.WaitUtils;
-import Constant.Station;
 
 public class TimeTablePage extends BasePage {
 	// Locator
@@ -14,7 +13,7 @@ public class TimeTablePage extends BasePage {
 			+ " and "
 			+ "td[count(//tr[@class='TableSmallHeader']/th[normalize-space()='Arrive Station']/preceding-sibling::th)+1][normalize-space()='%s']"
 			+ "]//a[normalize-space()='check price']";
-	
+
 	private String lnkBookTicketByStations = "//table[contains(@class,'MyTable')]//tr["
 			+ "td[count(//tr[@class='TableSmallHeader']/th[normalize-space()='Depart Station']/preceding-sibling::th)+1][normalize-space()='%s']"
 			+ " and "
@@ -24,23 +23,23 @@ public class TimeTablePage extends BasePage {
 	// Element
 
 	// Method
-	public TicketPricePage clickCheckPrice(Station departFrom, Station arriveAt) {
-		By locator = By.xpath(String.format(lnkCheckPriceByStations, departFrom.getName(), arriveAt.getName()));
+	public TicketPricePage clickCheckPrice(String departFrom, String arriveAt) {
+		By locator = By.xpath(String.format(lnkCheckPriceByStations, departFrom, arriveAt));
 		WaitUtils.waitForClickable(locator);
 		WebElement element = ProjectUtils.findElement(locator);
 		ProjectUtils.scrollDownByElement(element);
 		element.click();
-		
+
 		return new TicketPricePage();
 	}
-	
-	public BookTicketPage clickBookTicket(Station departFrom, Station arriveAt) {
-		By locator = By.xpath(String.format(lnkBookTicketByStations, departFrom.getName(), arriveAt.getName()));
+
+	public BookTicketPage clickBookTicket(String departFrom, String arriveAt) {
+		By locator = By.xpath(String.format(lnkBookTicketByStations, departFrom, arriveAt));
 		WaitUtils.waitForClickable(locator);
 		WebElement element = ProjectUtils.findElement(locator);
 		ProjectUtils.scrollDownByElement(element);
 		element.click();
-		
+
 		return new BookTicketPage();
 	}
 

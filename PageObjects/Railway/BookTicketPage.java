@@ -48,17 +48,16 @@ public class BookTicketPage extends BasePage {
 		Select select = new Select(getDdlDepartDate());
 		return select.getFirstSelectedOption().getText();
 	}
-	
+
 	public String getSelectedDepartFrom() {
 		Select select = new Select(getDdlDepartFrom());
 		return select.getFirstSelectedOption().getText();
 	}
-	
+
 	public String getSelectedArriveAt() {
 		Select select = new Select(getDdlArriveAt());
 		return select.getFirstSelectedOption().getText();
 	}
-	
 
 	public BookTicketSuccessPage bookTicket(TicketInfo ticket) {
 		// 1. Select Depart Date
@@ -69,20 +68,24 @@ public class BookTicketPage extends BasePage {
 		// 2. Select Depart From
 		WaitUtils.waitForVisible(ddlDepartFrom);
 		ProjectUtils.scrollDownByElement(getDdlDepartFrom());
-		ProjectUtils.selectByVisibleText(ddlDepartFrom, ticket.getDepartFrom().getName());
 
-		WebElement oldArriveAt = ProjectUtils.findElement(ddlArriveAt);
-		WaitUtils.waitUntilStale(oldArriveAt);
+		String targetDepart = ticket.getDepartFrom();
+		// Only wait for Stale if the current value is different from the expected value
+		if (!getSelectedDepartFrom().equals(targetDepart)) {
+			WebElement oldArriveAt = ProjectUtils.findElement(ddlArriveAt);
+			ProjectUtils.selectByVisibleText(ddlDepartFrom, targetDepart);
+			WaitUtils.waitUntilStale(oldArriveAt);
+		}
 
 		// Select Arrive at
 		WaitUtils.waitForVisible(ddlArriveAt);
 		ProjectUtils.scrollDownByElement(getDdlArriveAt());
-		ProjectUtils.selectByVisibleText(ddlArriveAt, ticket.getArriveAt().getName());
+		ProjectUtils.selectByVisibleText(ddlArriveAt, ticket.getArriveAt());
 
 		// Select Seat type
 		WaitUtils.waitForVisible(ddlSeatType);
 		ProjectUtils.scrollDownByElement(getDdlSeatType());
-		ProjectUtils.selectByVisibleText(ddlSeatType, ticket.getSeatType().getDescription());
+		ProjectUtils.selectByVisibleText(ddlSeatType, ticket.getSeatType());
 
 		// Select Ticket ammount
 		WaitUtils.waitForVisible(ddlTicketAmount);

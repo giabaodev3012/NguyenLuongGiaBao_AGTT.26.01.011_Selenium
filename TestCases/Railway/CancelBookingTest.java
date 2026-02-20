@@ -16,7 +16,7 @@ public class CancelBookingTest extends TestBase {
 	@Test
 	public void TC16() {
 		System.out.println("TC16 - User can cancel a ticket");
-		int plusDay = 4;
+		int plusDays = 4;
 
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
@@ -33,9 +33,10 @@ public class CancelBookingTest extends TestBase {
 		BookTicketPage bookTicketPage = homePage.gotoPage(MenuTab.BOOKTICKET, BookTicketPage.class);
 
 		String currentDepartDate = bookTicketPage.getSelectedDepartDate();
-		String targetDate = Utilities.plusDaysFromCurrentDepartDate(currentDepartDate, plusDay);
+		String targetDate = Utilities.plusDaysFromCurrentDepartDate(currentDepartDate, plusDays);
 
-		TicketInfo ticket = new TicketInfo(targetDate, Station.NHATRANG, Station.SAIGON, SeatType.SSC, "5");
+		TicketInfo ticket = new TicketInfo(targetDate, Station.NHATRANG.getName(), Station.SAIGON.getName(),
+				SeatType.SSC.getDescription(), "5");
 		BookTicketSuccessPage successPage = bookTicketPage.bookTicket(ticket);
 		String ticketId = successPage.getTicketIdFromUrl();
 

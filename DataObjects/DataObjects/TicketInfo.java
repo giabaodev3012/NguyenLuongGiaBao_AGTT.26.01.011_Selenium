@@ -1,17 +1,14 @@
 package DataObjects;
 
-import Constant.SeatType;
-import Constant.Station;
-
 public class TicketInfo {
 
 	private String departDate;
-	private Station departFrom;
-	private Station arriveAt;
-	private SeatType seatType;
+	private String departFrom;
+	private String arriveAt;
+	private String seatType;
 	private String ticketAmount;
 
-	public TicketInfo(String departDate, Station departFrom, Station arriveAt, SeatType seatType, String ticketAmount) {
+	public TicketInfo(String departDate, String departFrom, String arriveAt, String seatType, String ticketAmount) {
 		this.departDate = departDate;
 		this.departFrom = departFrom;
 		this.arriveAt = arriveAt;
@@ -19,7 +16,7 @@ public class TicketInfo {
 		this.ticketAmount = ticketAmount;
 	}
 
-	public TicketInfo(Station departFrom, Station arriveAt) {
+	public TicketInfo(String departFrom, String arriveAt) {
 		this.departFrom = departFrom;
 		this.arriveAt = arriveAt;
 	}
@@ -32,27 +29,27 @@ public class TicketInfo {
 		this.departDate = departDate;
 	}
 
-	public Station getDepartFrom() {
+	public String getDepartFrom() {
 		return departFrom;
 	}
 
-	public void setDepartFrom(Station departFrom) {
+	public void setDepartFrom(String departFrom) {
 		this.departFrom = departFrom;
 	}
 
-	public Station getArriveAt() {
+	public String getArriveAt() {
 		return arriveAt;
 	}
 
-	public void setArriveAt(Station arriveAt) {
+	public void setArriveAt(String arriveAt) {
 		this.arriveAt = arriveAt;
 	}
 
-	public SeatType getSeatType() {
+	public String getSeatType() {
 		return seatType;
 	}
 
-	public void setSeatType(SeatType seatType) {
+	public void setSeatType(String seatType) {
 		this.seatType = seatType;
 	}
 

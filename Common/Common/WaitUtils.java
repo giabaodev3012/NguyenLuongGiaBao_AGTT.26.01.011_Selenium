@@ -39,19 +39,14 @@ public class WaitUtils {
 	public static void waitForInvisible(By locator) {
 		waitForInvisible(locator, Constant.TIMEOUT);
 	}
-	
+
 	public static void waitUntilStale(WebElement element) {
-	    WebDriverWait wait = new WebDriverWait(
-	        Constant.WEBDRIVER,
-	        Duration.ofSeconds(Constant.TIMEOUT)
-	    );
-	    wait.until(ExpectedConditions.stalenessOf(element));
+		WebDriverWait wait = new WebDriverWait(Constant.WEBDRIVER, Duration.ofSeconds(Constant.TIMEOUT));
+		wait.until(ExpectedConditions.stalenessOf(element));
 	}
-	
+
 	public static void waitForAlert() {
-	    WebDriverWait wait = new WebDriverWait(Constant.WEBDRIVER, Duration.ofSeconds(Constant.TIMEOUT));
-	    wait.until(ExpectedConditions.alertIsPresent());
+		WebDriverWait wait = new WebDriverWait(Constant.WEBDRIVER, Duration.ofSeconds(Constant.TIMEOUT));
+		wait.until(ExpectedConditions.alertIsPresent());
 	}
-
-
 }

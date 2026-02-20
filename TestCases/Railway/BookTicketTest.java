@@ -20,14 +20,14 @@ public class BookTicketTest extends TestBase {
 	public void TC12() {
 		System.out.println("Prepare data");
 		String expectedMsg = "Ticket booked successfully!";
-		int plusDay = 2;
+		int plusDays = 2;
 
 		System.out.println("TC12 - User can book 1 ticket at a time");
 
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
-		
+
 		System.out.println("Pre-condition: Create Activate Account");
 		User activeUser = TestUtils.createActivatedAccount();
 
@@ -44,9 +44,10 @@ public class BookTicketTest extends TestBase {
 		System.out.println("7. Select \"1\" for \"Ticket amount\"");
 		System.out.println("8. Click on \"Book ticket\" button");
 		String currentDepartDate = bookTicketPage.getSelectedDepartDate();
-		String targetDate = Utilities.plusDaysFromCurrentDepartDate(currentDepartDate, plusDay);
+		String targetDate = Utilities.plusDaysFromCurrentDepartDate(currentDepartDate, plusDays);
 
-		TicketInfo ticket = new TicketInfo(targetDate, Station.NHATRANG, Station.HUE, SeatType.SBC, "1");
+		TicketInfo ticket = new TicketInfo(targetDate, Station.NHATRANG.getName(), Station.HUE.getName(),
+				SeatType.SBC.getDescription(), "1");
 		BookTicketSuccessPage successPage = bookTicketPage.bookTicket(ticket);
 
 		System.out.println("VP: Message \"Ticket booked successfully!\" displays.");
@@ -75,14 +76,14 @@ public class BookTicketTest extends TestBase {
 	public void TC13() {
 		System.out.println("Prepare data");
 		String expectedMsg = "Ticket booked successfully!";
-		int plusDay = 25;
+		int plusDays = 25;
 
 		System.out.println("TC13 - User can book many tickets at a time");
 
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
-		
+
 		System.out.println("Pre-condition: Create Activate Account");
 		User activeUser = TestUtils.createActivatedAccount();
 
@@ -99,9 +100,10 @@ public class BookTicketTest extends TestBase {
 		System.out.println("7. Select \"5\" for \"Ticket amount\"");
 		System.out.println("8. Click on \"Book ticket\" button");
 		String currentDepartDate = bookTicketPage.getSelectedDepartDate();
-		String targetDate = Utilities.plusDaysFromCurrentDepartDate(currentDepartDate, plusDay);
+		String targetDate = Utilities.plusDaysFromCurrentDepartDate(currentDepartDate, plusDays);
 
-		TicketInfo ticket = new TicketInfo(targetDate, Station.NHATRANG, Station.SAIGON, SeatType.SSC, "5");
+		TicketInfo ticket = new TicketInfo(targetDate, Station.NHATRANG.getName(), Station.SAIGON.getName(),
+				SeatType.SSC.getDescription(), "5");
 
 		BookTicketSuccessPage successPage = bookTicketPage.bookTicket(ticket);
 
@@ -130,22 +132,22 @@ public class BookTicketTest extends TestBase {
 	@Test
 	public void TC14() {
 		System.out.println("Prepare data");
-		TicketInfo ticket = new TicketInfo(Station.DANANG, Station.SAIGON);
+		TicketInfo ticket = new TicketInfo(Station.DANANG.getName(), Station.SAIGON.getName());
 		String expectedTableHeader = "Ticket price from " + ticket.getDepartFrom() + " to " + ticket.getArriveAt();
 
-		TicketPrice expectedPriceHS = new TicketPrice(SeatType.HS, "310000");
-		TicketPrice expectedPriceSS = new TicketPrice(SeatType.SS, "335000");
-		TicketPrice expectedPriceSSC = new TicketPrice(SeatType.SSC, "360000");
-		TicketPrice expectedPriceHB = new TicketPrice(SeatType.HB, "410000");
-		TicketPrice expectedPriceSB = new TicketPrice(SeatType.SB, "460000");
-		TicketPrice expectedPriceSBC = new TicketPrice(SeatType.SBC, "510000");
+		TicketPrice expectedPriceHS = new TicketPrice(SeatType.HS.getCode(), "310000");
+		TicketPrice expectedPriceSS = new TicketPrice(SeatType.SS.getCode(), "335000");
+		TicketPrice expectedPriceSSC = new TicketPrice(SeatType.SSC.getCode(), "360000");
+		TicketPrice expectedPriceHB = new TicketPrice(SeatType.HB.getCode(), "410000");
+		TicketPrice expectedPriceSB = new TicketPrice(SeatType.SB.getCode(), "460000");
+		TicketPrice expectedPriceSBC = new TicketPrice(SeatType.SBC.getCode(), "510000");
 
 		System.out.println("TC14 - User can check price of ticket from Timetable");
 
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
-		
+
 		System.out.println("Pre-condition: Create Activate Account");
 		User activeUser = TestUtils.createActivatedAccount();
 
@@ -170,71 +172,73 @@ public class BookTicketTest extends TestBase {
 				+ "HS = 310000, SS = 335000, SSC = 360000, HB = 410000, SB = 460000, SBC = 510000");
 		String actualPriceHS = ticketPricePage.getPriceBySeatType(SeatType.HS);
 		Assert.assertEquals(actualPriceHS, expectedPriceHS.getPrice(), "Price of seat type is incorrect");
-		
+
 		String actualPriceSS = ticketPricePage.getPriceBySeatType(SeatType.SS);
 		Assert.assertEquals(actualPriceSS, expectedPriceSS.getPrice(), "Price of seat type is incorrect");
-		
+
 		String actualPriceSSC = ticketPricePage.getPriceBySeatType(SeatType.SSC);
 		Assert.assertEquals(actualPriceSSC, expectedPriceSSC.getPrice(), "Price of seat type is incorrect");
-		
+
 		String actualPriceHB = ticketPricePage.getPriceBySeatType(SeatType.HB);
 		Assert.assertEquals(actualPriceHB, expectedPriceHB.getPrice(), "Price of seat type is incorrect");
-		
+
 		String actualPriceSB = ticketPricePage.getPriceBySeatType(SeatType.SB);
 		Assert.assertEquals(actualPriceSB, expectedPriceSB.getPrice(), "Price of seat type is incorrect");
-		
+
 		String actualPriceSBC = ticketPricePage.getPriceBySeatType(SeatType.SBC);
 		Assert.assertEquals(actualPriceSBC, expectedPriceSBC.getPrice(), "Price of seat type is incorrect");
 
 	}
-	
+
 	@Test
 	public void TC15() {
 		System.out.println("Prepare data");
-		RouteInfo route = new RouteInfo(Station.QUANGNGAI, Station.HUE);
+		RouteInfo route = new RouteInfo(Station.QUANGNGAI.getName(), Station.HUE.getName());
 		String expectedMsg = "Ticket booked successfully!";
-		int plusDay = 1;
-		
+		int plusDays = 1;
+
 		String today = Utilities.getToday();
-		String targetDate = Utilities.plusDaysFromCurrentDepartDate(today, plusDay);
-		
+		String targetDate = Utilities.plusDaysFromCurrentDepartDate(today, plusDays);
+
 		System.out.println("TC15 - User can book ticket from Timetable");
-		
+
 		System.out.println("1. Navigate to QA Railway Website");
 		HomePage homePage = new HomePage();
 		homePage.open();
-		
+
 		System.out.println("Pre-condition: Create Activate Account");
 		User activeUser = TestUtils.createActivatedAccount();
-		
+
 		System.out.println("2. Login with a valid account");
 		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
 		homePage = loginPage.login(activeUser, HomePage.class);
-		
+
 		System.out.println("3. Click on \"Timetable\" tab");
 		TimeTablePage timeTablePage = homePage.gotoPage(MenuTab.TIMETABLE, TimeTablePage.class);
-		
+
 		System.out.println("4. Click on book ticket of route \"Quảng Ngãi\" to \"Huế\"");
 		BookTicketPage bookTicketPage = timeTablePage.clickBookTicket(route.getDepartFrom(), route.getArriveAt());
-		
+
 		System.out.println("VP: Book ticket form is shown with the corrected \"depart from\" and \"Arrive at\"");
 		String actualDepartFrom = bookTicketPage.getSelectedDepartFrom();
 		Assert.assertEquals(actualDepartFrom, route.getDepartFrom(), "Depart From is incorrect");
-		
+
 		String actualArriveAt = bookTicketPage.getSelectedArriveAt();
 		Assert.assertEquals(actualArriveAt, route.getArriveAt(), "Arrive At is incorrect");
-		
+
 		System.out.println("5. Select Depart date = tomorrow");
 		System.out.println("6. Select Ticket amount = 5");
 		System.out.println("7. Click on \"Book ticket\" button");
-		TicketInfo ticket = new TicketInfo(targetDate, route.getDepartFrom(), route.getArriveAt(), SeatType.SSC, "5");
+		TicketInfo ticket = new TicketInfo(targetDate, route.getDepartFrom(), route.getArriveAt(),
+				SeatType.SSC.getDescription(), "5");
 		BookTicketSuccessPage successPage = bookTicketPage.bookTicket(ticket);
-		
+
 		System.out.println("VP: Message \"Ticket booked successfully!\" displays");
 		String actualMsg = successPage.getSuccessMsg();
 		Assert.assertEquals(actualMsg, expectedMsg, "Successful message is not displayed as expected");
-		
-		System.out.println("VP: Information display correctly (Depart Date,  Depart Station,  Arrive Station,  Seat Type,  Amount)");
+
+		System.out.println(
+				"VP: Information display correctly (Depart Date,  Depart Station,  Arrive Station,  Seat Type,  Amount)");
 		String actualDepartStation = successPage.getCellValueByHeader(BookTicketColumn.DEPART_STATION);
 		Assert.assertEquals(actualDepartStation, ticket.getDepartFrom(), "Depart Station is incorrect");
 
@@ -248,7 +252,7 @@ public class BookTicketTest extends TestBase {
 		Assert.assertEquals(actualAmount, ticket.getTicketAmount(), "Ticket amount is incorrect");
 
 		String actualDepartDate = successPage.getCellValueByHeader(BookTicketColumn.DEPART_DATE);
-		Assert.assertEquals(actualDepartDate, ticket.getDepartDate(), "Depart Date is incorrect");	
+		Assert.assertEquals(actualDepartDate, ticket.getDepartDate(), "Depart Date is incorrect");
 	}
 
 }

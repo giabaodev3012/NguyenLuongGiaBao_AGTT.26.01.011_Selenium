@@ -21,9 +21,7 @@ public class LogoutTest extends TestBase {
 		User activeUser = TestUtils.createActivatedAccount();
 
 		System.out.println("2. Login with valid Email and Password");
-		// Click login tab
 		LoginPage loginPage = homePage.gotoPage(MenuTab.LOGIN, LoginPage.class);
-		// Enter valid information
 		homePage = loginPage.login(activeUser, HomePage.class);
 
 		System.out.println("3. Click on \"FAQ\" tab");

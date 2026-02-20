@@ -1,21 +1,19 @@
 package DataObjects;
 
-import Constant.SeatType;
-
 public class TicketPrice {
-	private SeatType seatType;
+	private String seatType;
 	private String price;
 
-	public TicketPrice(SeatType seatType, String price) {
+	public TicketPrice(String seatType, String price) {
 		this.seatType = seatType;
 		this.price = price;
 	}
 
-	public SeatType getSeatType() {
+	public String getSeatType() {
 		return seatType;
 	}
 
-	public void setSeatType(SeatType seatType) {
+	public void setSeatType(String seatType) {
 		this.seatType = seatType;
 	}
 

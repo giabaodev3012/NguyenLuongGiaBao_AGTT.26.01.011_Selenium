@@ -9,4 +9,5 @@ public class Constant {
 	public static final String PASSWORD = "12345678";
 	public static final String CONFIRMPASSWORD = "12345678";
 	public static final int TIMEOUT = 10;
+	public static final String ID_FROM_URL_REGEX = ".*id=(\\d+).*";
 }
